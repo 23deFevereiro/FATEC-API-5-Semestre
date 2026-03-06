@@ -347,9 +347,9 @@ TODO
 
 ## 📄 Documentação
 
-<a href="">Wireframe (TODO)</a>
+<a href="https://www.figma.com/design/UGtbRBRk3JZqQ7Vx9TMAQ8/API-5-Sem?node-id=0-1&p=f&t=2RMKV3keLHuhPPgL-0">Wireframe</a>
 
-<a href="">Documentação (TODO)</a>
+<a href="https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki">Documentação</a>
 
 ---
 
