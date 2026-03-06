@@ -7,8 +7,6 @@
     <a href="#desafio">Desafio</a> |  
     <a href="#solucao">Solução</a> |   
     <a href="#backlog-do-produto">Backlog do Produto</a> |
-    <a href="#dor">DoR</a> |
-    <a href="#dor">DoD</a> |
     <a href="#cronograma-de-sprints">Cronograma de Sprints</a> |
     <a href="#resumo-de-sprints">Resumo de Sprints</a> |
     <a href="#burndown">Burndown</a> |
@@ -112,41 +110,6 @@ TODO (mantendo o do semestre passado para servir de base)
 | 13 | 🟡 Média * | Como gestor, quero poder visualizar e manipular todos os usuários disponíveis na base | 7 | 3 |
 | 14 | 🟢 Baixa | Como gestor, quero ter logs dos alertas gerados, para registro de auditoria e estudo de histórico do comportamento do trânsito | 6 | 3 |
 | 15 | 🟢 Baixa ~ | Como gestor, quero um chat interno no produto para que eu possa consultar informações que estão no banco de forma simplificada | 42 | 3 |
-
-→ <a href="#23-de-fevereiro">Voltar ao topo</a>
-
----
-
-<span id="dor">
-
-## 🏃‍  DoR - Definition of Ready
-
-<details>
-     
-<summary>Clique aqui</summary>
-<br>
-- Critérios de aceite bem definidos;
-- Problema bem descrito;
-- Dicionário de dados disponibilizados;
-- Wirefram da feature disposto no Figma;
-- Entendimento e acesso de ferramentas externas.
-
-</details>
-
-<span id="dod">
-
-## 🏆 DoD - Definition of Done
-
-<details>
-     
-<summary>Clique aqui</summary>
-<br>
-- Testes com x% (a definir, conversar com Nadalete) de cobertura em cima do código desenvolvido;
-- Testes com 100% de sucesso;
-- Cumpre critérios de aceite para o card;
-- Revisão de código por pelo menos 1 outro desenvolvedor.
-
-</details>
 
 → <a href="#23-de-fevereiro">Voltar ao topo</a>
 
