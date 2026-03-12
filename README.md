@@ -20,7 +20,7 @@
 ## 📍 Introdução
 Este projeto foi desenvolvido pelo grupo **23 de fevereiro**, composto por estudantes do 5º semestre de Tecnologia em Banco de Dados da Fatec São José dos Campos.
 
-A proposta é criar a ---, uma ferramenta de --- integrada às base de dados da empresa parceira **SIATT**, com foco em criar uma visão analítica consolidada das informações que a empresa dispõe. A --- permitirá que gestores façam análises históricas e estratégicas e, assim, gerar indicadores relevantes para a gestão de programas e projetos.
+A proposta é criar a `Lunae`, uma ferramenta de extração, tratativa de dados e visão analítica, integrada às base de dados da empresa parceira **SIATT**, com foco em criar dashboards das informações que a empresa dispõe. A Lunae permitirá que gestores façam análises históricas e estratégicas e, assim, gerar indicadores relevantes para a gestão de programas e projetos.
 
 ### SIATT: A Empresa Cliente
 O projeto é uma solução voltada à SIATT – **Sistemas Integrados de Alto Teor Tecnológico**, empresa brasileira fundada em 2015 e sediada no Parque Tecnológico de São José dos Campos (SP). Especializada no desenvolvimento e integração de sistemas de alta tecnologia para os setores de defesa e aeroespacial, a companhia atua na criação de soluções avançadas como mísseis e armamentos inteligentes, sistemas de guiagem e navegação, radares, aviônicos e sistemas de comunicação e controle. Com uma equipe majoritariamente formada por engenheiros e especialistas, a SIATT participa de projetos estratégicos para as Forças Armadas brasileiras, incluindo o desenvolvimento do MANSUP (Míssil Antinavio Nacional), além de colaborar em iniciativas tecnológicas voltadas à segurança, monitoramento e comunicação em ambientes complexos.
@@ -121,15 +121,14 @@ TODO (mantendo o do semestre passado para servir de base)
 ## 💻 Tecnologias
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" />
-  <img src="https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white" />
   <img src="https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D" />
+  <img src="https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white" />
+  <img src="https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white" />
+  <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" />
   <img src="https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white" />
   <img src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white" />
   <img src="https://img.shields.io/badge/VS_Code-CED4DA?style=for-the-badge&logo=visual-studio-code&logoColor=0078D4" />
   <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" />
-  <img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=jira&logoColor=white" />
-  <img src="https://img.shields.io/badge/Google%20Docs-CED4DA?style=for-the-badge&logo=google-docs&logoColor=0D96F6" />
   <img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black" />
 </p>
 
