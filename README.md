@@ -74,19 +74,17 @@ A solução fornece um dashboard interativo com gráficos de barras e linhas que
 
 ## 📋 Backlog do Produto
 
-Rank | Prioridade | User Story | Story Points | Sprint
--- | -- | -- | -- | --
-1 | 🔴 Alta | Como gestor de projeto, quero visualizar um gráfico de barras com horas trabalhadas por usuário para entender a distribuição de esforço da equipe | - | 1
-2 | 🔴 Alta | Como gestor, quero visualizar um gráfico de barras com horas trabalhadas por projeto para comparar o esforço entre projetos | - | 1
-3 | 🔴 Alta | Como gestor, quero visualizar a evolução de horas trabalhadas por projeto ao longo do tempo em um gráfico multi-linha para acompanhar o progresso das atividades | - | 1
-4 | 🔴 Alta | Como gestor financeiro, quero visualizar a evolução de custos por projeto ao longo do tempo em um gráfico multi-linha para acompanhar o crescimento dos gastos | - | 1
-5 | 🔴 Alta | Como gestor, quero filtrar os gráficos pelo status do projeto para analisar diferentes cenários operacionais | - | 1
-6 | 🟡 Média | Como gestor, quero visualizar a evolução de horas trabalhadas por programa ao longo do tempo para acompanhar o esforço agregado em nível estratégico | - | 2
-7 | 🟡 Média | Como gestor financeiro, quero visualizar a evolução de custos por programa ao longo do tempo para analisar o comportamento financeiro dos programas | - | 2
-8 | 🟡 Média | Como gestor, quero visualizar um gráfico de barras com horas trabalhadas por programa para comparar o esforço entre diferentes programas | - | 2
-9 | 🟡 Média | Como gestor de projeto, quero calcular o total de horas trabalhadas por usuário e por projeto para acompanhar o esforço de desenvolvimento | - | 1
-10 | 🟡 Média | Como gestor financeiro, quero calcular o custo total por projeto com base nas compras realizadas para avaliar o impacto financeiro dos projetos | - | 1
-11 | 🟡 Média | Como gestor, quero consolidar horas e custos por programa para permitir análises estratégicas entre diferentes programas da organização | - | 2
+Rank | Prioridade | User Story | Story Points | Sprint | Requisito do Cliente
+-- | -- | -- | -- | -- | --
+1 | 🔴 Alta | Como gestor de projeto, quero visualizar um gráfico de barras com horas trabalhadas por funcionário para entender a distribuição de esforço da equipe separados por projeto | 8 | 1 | [RF05](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[RF07](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[RF12](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)
+2 | 🔴 Alta | Como gestor, quero visualizar informações de cada projeto através da aplicação de filtro | 3 | 1 | [RF02](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[RF11](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[RF12](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)
+3 | 🔴 Alta | Como gestor, quero visualizar a evolução de horas trabalhadas por projeto ao longo do tempo em um gráfico multi-linha para acompanhar o progresso das atividades | 8 | 1 | [RF05](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[RF08](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[RF12](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)
+4 | 🔴 Alta | Como gestor, quero visualizar a evolução de custos por projeto ao longo do tempo em um gráfico multi-linha para acompanhar o crescimento dos gastos | 8 | 1 | [RF06](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[RF09](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[RF12](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)
+5 | 🔴 Alta | Como gestor, quero calcular o custo total por projeto com base nas compras realizadas para avaliar o impacto financeiro dos projetos | 3 | 1 | [RF02](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[RF06](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[RF12](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)
+6 | 🟡 Média | Como gestor, quero visualizar a evolução de horas trabalhadas por programa ao longo do tempo para acompanhar o esforço agregado em nível estratégico | - | 2 | [RF05](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[RF10](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[RF12](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)
+7 | 🟡 Média | Como gestor, quero visualizar a evolução de custos por programa ao longo do tempo para analisar o comportamento financeiro dos programas | - | 2 |[RF06](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[RF10](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[RF12](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)
+8 | 🟡 Média | Como gestor, quero visualizar um gráfico de barras com horas trabalhadas por programa para comparar o esforço entre diferentes programas | - | 2 | [RF05](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[RF10](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)
+9 | 🟡 Média | Como gestor, quero consolidar horas e custos por programa para permitir análises estratégicas entre diferentes programas da organização | - | 2 | [RF05](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[RF06](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[RF10](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[RF14](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)
 
 → <a href="#23-de-fevereiro">Voltar ao topo</a>
 
@@ -96,14 +94,14 @@ Rank | Prioridade | User Story | Story Points | Sprint
     
 ## ⏱️ Cronograma de Evolução do Projeto
 
-| Etapa            | Sprint 1 | Sprint 2 | Sprint 3 |
-| ---------------- | -------- | -------- | -------- |
-| Planejamento     |          |          |          |
-| Modelagem do DW  |          |          |          |
-| Backend (Django) |          |          |          |
-| Frontend (Vue)   |          |          |          |
-| Dashboards       |          |          |          |
-| Testes           |          |          |          |
+| Etapa            | Kick-Off | Sprint 1 | Sprint 2 | Sprint 3 |
+| ---------------- | -------- | -------- | -------- | -------- |
+| Planejamento     | ████████ | ████████ | ████     |          |
+| Modelagem do DW  | ████████ | ██       |          |          |
+| Backend (Django) |          | ████████ | ████████ | ████████ |
+| Frontend (Vue)   |          | ████████ | ████████ | ████████ |
+| Dashboards       |          | ████████ | ████████ | ████████ |
+| Testes           |          | ████████ | ████████ | ████████ |
 
 → <a href="#23-de-fevereiro">Voltar ao topo</a>
 
@@ -115,7 +113,7 @@ Rank | Prioridade | User Story | Story Points | Sprint
 
 | Sprint | Início | Fim | Histórico | Entrega |
 |-|-|-|-|-|
-| Kick off | 02/03/2026 | --- | --- | --- |
+| Kick off | 02/03/2026 | 15/03/2026 | --- | --- |
 | SPRINT 1 | 16/03/2026 | 05/04/2026 | [Sprint 1 Docs](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/5.-Documenta%C3%A7%C3%A3o-das-Sprints#sprint-1) | [Vídeo - TODO]() |
 | SPRINT 2 | 13/04/2026 | 03/05/2026 | [Sprint 2 Docs](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/5.-Documenta%C3%A7%C3%A3o-das-Sprints#sprint-2) | [Vídeo - TODO]() |
 | SPRINT 3 | 11/05/2026 | 31/05/2026 | [Sprint 3 Docs](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/5.-Documenta%C3%A7%C3%A3o-das-Sprints#sprint-3) | [Vídeo - TODO]() |
