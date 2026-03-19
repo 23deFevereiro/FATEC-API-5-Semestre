@@ -1,0 +1,26 @@
+include: 
+  - ../docker-compose.yml
+
+services:
+  dev-env:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    volumes:
+      - ../:/home/iguana/app
+      - ~/.ssh:/home/iguana/.ssh:ro
+      - ~/.gitconfig:/home/iguana/.gitconfig:ro
+
+    restart: always
+
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - VITE_API_URL=http://localhost:8000
+      
+    ports:
+      - 5173:5173
+      - 8000:8000
+    tty: true
