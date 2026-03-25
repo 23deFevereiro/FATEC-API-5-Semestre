@@ -3,7 +3,7 @@
     "concurrently": "^9.2.1"
   },
   "scripts": {
-    "install:both": "concurrently -c \"cyan,yellow\" -n \" back  , front \" \"cd API_5_SEM_BACK && python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt && python manage.py migrate\" \"cd API_5_SEM_FRONT && npm i\"",
-    "serve:both": "concurrently -c \"cyan,yellow\" -n \" back  , front \" \"cd API_5_SEM_BACK && . .venv/bin/activate && python manage.py runserver 0.0.0.0:8000\" \"cd API_5_SEM_FRONT && npm run dev\""
+    "install:both": "concurrently -c \"cyan,yellow\" -n \" back  , front \" \"cd API_5_SEM_BACK && pip install  --break-system-packages -r requirements.txt && python manage.py migrate\" \"cd API_5_SEM_FRONT && npm i\"",
+    "serve:both": "concurrently -c \"cyan,yellow\" -n \" back  , front \" \"cd API_5_SEM_BACK && python manage.py runserver 0.0.0.0:8000\" \"cd API_5_SEM_FRONT && npm run dev\""
   }
 }

@@ -1,4 +1,4 @@
-npm i
-npm run install:both
+npm --prefix /home/$(whoami)/app i
+npm --prefix /home/$(whoami)/app run install:both
 
 /bin/zsh
