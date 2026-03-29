@@ -1,0 +1,62 @@
+name: 'Update Submodule'
+
+inputs:
+  token:
+    required: true
+  message:
+    required: true
+  repo-name:
+    required: true
+  folder-name:
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/checkout@v4
+      with:
+        # Change when sent to main repo
+        repository: MarcyLeite/API_5_SEM_BACK
+        token: ${{ inputs.token }}
+        submodules: true
+
+    # - name: Pull submodule
+    #   shell: bash
+    #   run: git submodule update --init --recursive
+
+    # - name: Update submodule Reference
+    #   shell: bash
+    #   env:
+    #     MESSAGE: ${{ inputs.message }}
+    #   run: | 
+    #     cd ${{ inputs.folder-name }}
+    #     git checkout main 
+    #     cd ..
+
+    #     git switch release 2>/dev/null || git switch -c release
+    #     git config --global user.name "github-actions[bot]"
+    #     git config --global user.email "github-actions[bot]@users.noreply.github.com"
+    #     git add --all
+
+    #     git diff --quiet || git commit -m "$MESSAGE"
+        
+    #     git push HEAD
+
+    # - name: Check for existing PR
+    #   shell: bash
+    #   id: pr-check
+    #   run: |
+    #     PR_NUMBER=$(gh pr list \
+    #       --head release \
+    #       --base main \
+    #       --json number --jq '.[0].number' || echo "")
+    #     echo "EXISTING_PR=$PR_NUMBER" >> $GITHUB_ENV
+
+    # - name: Create PR if not exists
+    #   if: env.EXISTING_PR == ''
+    #   shell: bash
+    #   run: |
+    #     gh pr create \
+    #       --head release \
+    #       --base main \
+    #       --title "New Release"
