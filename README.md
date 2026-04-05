@@ -122,9 +122,9 @@ The solution provides an interactive dashboard with bar and line charts that all
 | Sprint | Start | End | History | Delivery |
 |-|-|-|-|-|
 | Kick off | 02/03/2026 | 15/03/2026 | --- | --- |
-| SPRINT 1 | 16/03/2026 | 05/04/2026 | [Sprint 1 Docs](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/5.-Documenta%C3%A7%C3%A3o-das-Sprints#sprint-1) | [Vídeo - TODO]() |
-| SPRINT 2 | 13/04/2026 | 03/05/2026 | [Sprint 2 Docs](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/5.-Documenta%C3%A7%C3%A3o-das-Sprints#sprint-2) | [Vídeo - TODO]() |
-| SPRINT 3 | 11/05/2026 | 31/05/2026 | [Sprint 3 Docs](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/5.-Documenta%C3%A7%C3%A3o-das-Sprints#sprint-3) | [Vídeo - TODO]() |
+| SPRINT 1 | 16/03/2026 | 05/04/2026 | [Sprint 1 Docs](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/4.-Documenta%C3%A7%C3%A3o-das-Sprints#sprint-1-16032026--05042026) | [Vídeo](https://github.com/user-attachments/assets/4b7b6e97-c418-4774-a24f-81e6ac66dfde) |
+| SPRINT 2 | 13/04/2026 | 03/05/2026 | [Sprint 2 Docs](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/4.-Documenta%C3%A7%C3%A3o-das-Sprints#sprint-2-13042026--03052026) | [Vídeo - TODO]() |
+| SPRINT 3 | 11/05/2026 | 31/05/2026 | [Sprint 3 Docs](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/4.-Documenta%C3%A7%C3%A3o-das-Sprints#sprint-3-11052026--31052026) | [Vídeo - TODO]() |
 | Solutions Fair | 11/06/2026 | --- | --- | --- |
 
 → <a href="#23-de-fevereiro">Back to top</a>
