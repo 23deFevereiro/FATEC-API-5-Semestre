@@ -77,9 +77,9 @@ The solution provides an interactive dashboard with bar and line charts that all
 
 | Rank | Priority | User Story | Story Points | Sprint | Client Requirement | DoR |
 |------|----------|------------|--------------|--------|-------------------|-----|
-| 1 | 🔴 High | As a project manager, I want to view a bar chart of hours worked per employee to understand the team's effort distribution, separated by project | 8 | 1 | [RC05](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[RC07](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=165341438&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C7) |
-| 2 | 🔴 High | As a manager, I want to filter a specific project and view summary indicators like total cost and total time to quickly understand its overall status | 3 | 1 | [RC11](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[RC12](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=165348614&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C10) [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=167578002&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C25) |
-| 3 | 🔴 High | As a manager, I want to view the evolution of hours worked per project over time in a multi-line chart to track activity progress | 8 | 1 | [RC05](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[08](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=165347588&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C8) |
+| 1 | 🔴 High | As a project manager, I want to view a bar chart of hours worked per employee to understand the team's effort distribution, separated by project | 8 | 1 | [CR05](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[CR07](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=165341438&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C7) |
+| 2 | 🔴 High | As a manager, I want to filter a specific project and view summary indicators like total cost and total time to quickly understand its overall status | 3 | 1 | [CR11](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[CR12](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=165348614&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C10) [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=167578002&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C25) |
+| 3 | 🔴 High | As a manager, I want to view the evolution of hours worked per project over time in a multi-line chart to track activity progress | 8 | 1 | [CR05](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[08](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=165347588&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C8) |
 | 4 | 🔴 High | As a manager, I want to view the evolution of costs per project over time in a multi-line chart to track spending growth | 8 | 1 | [CR06](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[CR09](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=165347776&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C9) |
 | 5 | 🔴 High | As a manager, I want to view the cost invested in each material through a materials table to assess the financial impact of projects | 3 | 1 | [CR06](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=165350150&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C13) |
 | 6 | 🔴 High | As a manager, I want to view a table of employees with the total hours they have worked and the projects they are allocated to, so that I can understand resource distribution and team effort across projects | 3 | 1 | [CR07](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=165350061&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C12) |
@@ -155,7 +155,405 @@ The solution provides an interactive dashboard with bar and line charts that all
     
 ## 🗂️ Project Structure
 
-TODO (Sprint 3)
+<details>
+
+<summary>Click here</summary>
+
+## 1. System Architecture
+
+### 1.1 Data Flow Overview
+
+```
+CSVs (client) → ETL (Django commands) → PostgreSQL (star schema) → Django REST API → Vue.js Frontend
+```
+
+1. **Source:** The client provides CSV files containing data on projects, tasks, hours worked, materials, purchases, and inventory.
+2. **ETL:** The `fix_csv` command corrects inconsistencies in the raw data (cascading statuses, conflicting assignees, etc.) and saves the corrected CSVs in `corrected_documents/`. The `dev_db` command then runs the seed matching the current migration, which reads those corrected CSVs and populates the database using the **star schema** (dimensions + facts).
+3. **Database:** PostgreSQL stores dimension tables (`dim_*`) and fact tables (`fato_*`).
+4. **API:** The Django REST Framework backend exposes endpoints under `/api/` that query the database via ORM and return JSON.
+5. **Frontend:** The Vue.js SPA consumes these endpoints and renders dashboards with charts (ApexCharts), tables, and KPI cards.
+
+---
+
+### 1.2 Component Diagram
+
+```mermaid
+graph TD
+    CSV[📄 Client CSVs]
+    ETL[⚙️ ETL\nfix_csv + dev_db\nDjango management commands]
+    DB[(🐘 PostgreSQL\ndim_* + fato_*)]
+    API[🐍 Backend\nDjango REST Framework]
+    FE[🖥️ Frontend\nVue.js + ApexCharts]
+
+    CSV -->|raw files| ETL
+    ETL -->|corrected and transformed data| DB
+    DB -->|ORM queries| API
+    API -->|JSON / REST| FE
+```
+
+---
+
+### 1.3 Main API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/projetos/` | Lists all projects (filters: `search`, `programa_id`) |
+| GET | `/api/projetos-overview` | General KPIs across all projects |
+| GET | `/api/projetos/{id}/resumo/` | Summary of a specific project |
+| GET | `/api/projetos/{id}/materiais/` | Materials used in a project (paginated, period and material filters) |
+| GET | `/api/projetos/{id}/horas-por-funcionario/` | Hours per employee in a project (period filters) |
+| GET | `/api/projetos/{id}/funcionarios/` | Employees allocated to a project |
+| GET | `/api/projetos/burnup-horas/` | Hours burnup data per project (filter: `programa_id`) |
+| GET | `/api/programas/` | Lists all programs (filter: `search`) |
+| GET | `/api/programas/{id}/resumo/` | Summary of a program |
+| GET | `/api/programas/{id}/distribuicao-status/` | Status distribution of projects within a program |
+| GET | `/api/programas-burnup-horas/` | Hours burnup aggregated by program |
+| GET | `/api/programas-burnup-custo/` | Cost burnup aggregated by program |
+| GET | `/api/programas/{id}/tabela-projetos/` | Projects table for a program (paginated, sortable) |
+| GET | `/api/programas/{id}/horas-por-projeto/` | Hours distributed per project within a program |
+| GET | `/api/compras/materiais/` | Materials that have registered purchases |
+| GET | `/api/compras/lead-time/?material_id={id}` | Lead time per supplier for a given material |
+| GET | `/api/compras/alertas/` | Critical/warning inventory alerts (params: `critico_max`, `atencao_max`) |
+| GET | `/api/compras/estoque-tabela/` | Inventory table with status classification (paginated, sortable) |
+
+**Request and response examples:**
+
+```http
+GET /api/projetos/1/resumo/
+```
+
+```json
+{
+  "id": 1,
+  "codigo_projeto": "PROJ-001",
+  "nome_projeto": "Systems Integration",
+  "responsavel": "John Smith",
+  "status": "In progress",
+  "data_inicio": "2024-01-15",
+  "data_fim_prevista": "2024-12-31",
+  "total_horas": 1240.5,
+  "custo_total": 98450.00
+}
+```
+
+```http
+GET /api/compras/alertas/?critico_max=30&atencao_max=60
+```
+
+```json
+{
+  "critico": [
+    { "material": "UTP Cat6 Cable", "estoque": 12, "lead_time_medio": 25 }
+  ],
+  "atencao": [
+    { "material": "24-port Switch", "estoque": 45, "lead_time_medio": 55 }
+  ]
+}
+```
+
+---
+
+### 1.4 Technologies and Rationale
+
+| Technology | Rationale |
+|------------|-----------|
+| **Vue.js 3** | Native reactivity (Composition API), reusable components, straightforward integration with charting libraries such as ApexCharts, and TypeScript support. |
+| **Django + DRF** | Powerful ORM, built-in admin interface, easy REST API creation with serializers and class-based views, plus a robust ecosystem for ETL scripts via management commands. |
+| **PostgreSQL** | Robust relational database with analytical query support, referential integrity via foreign keys, and excellent performance with the star schema. |
+| **Docker** | Ensures reproducibility of the development environment by isolating the database via `docker-compose.yml` and eliminating configuration discrepancies between machines. |
+| **Pandas** | Used in the ETL process to read, correct, and transform CSVs before loading them into the database. |
+
+---
+
+## 2. Database Structure
+
+The project adopts the **Star Schema**, common in analytical applications. Dimension tables (`dim_*`) describe business entities, while fact tables (`fato_*`) store measurable metrics with references to those dimensions.
+
+### 2.1 Entity-Relationship Diagram
+
+```mermaid
+erDiagram
+    dim_programa {
+        int id PK
+        string codigo_programa
+        string nome_programa
+        string gerente_programa
+        date data_inicio
+        date data_fim_prevista
+        string status
+    }
+
+    dim_projeto {
+        int id PK
+        string codigo_projeto
+        string nome_projeto
+        int programa_id FK
+        string responsavel
+        decimal custo_hora
+        string status
+        date data_inicio
+        date data_fim_prevista
+    }
+
+    dim_tarefa {
+        int id PK
+        string codigo_tarefa
+        int projeto_id FK
+        string titulo
+        string responsavel
+        decimal horas_estimadas
+        string status
+    }
+
+    dim_funcionario {
+        int id PK
+        string nome
+    }
+
+    dim_material {
+        int id PK
+        string codigo_material
+        string descricao
+        string categoria
+        string fabricante
+        decimal custo_estimado
+        string status
+    }
+
+    dim_fornecedor {
+        int id PK
+        string codigo_fornecedor
+        string razao_social
+        string cidade
+        string estado
+        string categoria
+        string status
+    }
+
+    dim_status_pedido {
+        int id PK
+        string nome_status
+        string categoria
+        int ordem_prioridade
+    }
+
+    dim_tempo {
+        int id PK
+        date data
+        int ano
+        int mes
+        int trimestre
+        int semestre
+        int dia_semana
+    }
+
+    fato_horas {
+        int id PK
+        int tempo_id FK
+        int projeto_id FK
+        int programa_id FK
+        int tarefa_id FK
+        int funcionario_id FK
+        decimal horas_trabalhadas
+        decimal custo_horas
+    }
+
+    fato_materiais {
+        int id PK
+        int tempo_id FK
+        int projeto_id FK
+        int programa_id FK
+        int material_id FK
+        int fornecedor_id FK
+        int quantidade_empenhada
+        decimal custo_materiais
+    }
+
+    fato_compras {
+        int id PK
+        int tempo_id FK
+        int projeto_id FK
+        int material_id FK
+        int fornecedor_id FK
+        int status_id FK
+        int quantidade_solicitada
+        int quantidade_entregue
+        decimal valor_alocado
+        decimal valor_total
+        int lead_time
+        date data_previsao_entrega
+    }
+
+    fato_estoque {
+        int id PK
+        int tempo_id FK
+        int material_id FK
+        int projeto_id FK
+        int quantidade_estoque
+    }
+
+    dim_programa ||--o{ dim_projeto : "has"
+    dim_projeto ||--o{ dim_tarefa : "has"
+    dim_projeto ||--o{ fato_horas : "referenced in"
+    dim_programa ||--o{ fato_horas : "referenced in"
+    dim_tarefa ||--o{ fato_horas : "referenced in"
+    dim_funcionario ||--o{ fato_horas : "referenced in"
+    dim_tempo ||--o{ fato_horas : "referenced in"
+    dim_projeto ||--o{ fato_materiais : "referenced in"
+    dim_programa ||--o{ fato_materiais : "referenced in"
+    dim_material ||--o{ fato_materiais : "referenced in"
+    dim_fornecedor ||--o{ fato_materiais : "referenced in"
+    dim_tempo ||--o{ fato_materiais : "referenced in"
+    dim_projeto ||--o{ fato_compras : "referenced in"
+    dim_material ||--o{ fato_compras : "referenced in"
+    dim_fornecedor ||--o{ fato_compras : "referenced in"
+    dim_status_pedido ||--o{ fato_compras : "referenced in"
+    dim_tempo ||--o{ fato_compras : "referenced in"
+    dim_material ||--o{ fato_estoque : "referenced in"
+    dim_projeto ||--o{ fato_estoque : "referenced in"
+    dim_tempo ||--o{ fato_estoque : "referenced in"
+```
+
+---
+
+### 2.2 Main Tables
+
+#### Dimensions
+
+| Table | Purpose |
+|-------|---------|
+| `dim_programa` | Groups projects into strategic programs. Contains manager, dates, and program status. |
+| `dim_projeto` | Each project linked to a program. Holds the responsible person, cost per hour, and execution period. |
+| `dim_tarefa` | Unit of work within a project. Stores estimated hours and task status. |
+| `dim_funcionario` | Simple employee registry (unique name) extracted from hours entries. |
+| `dim_material` | Material catalog with description, category, manufacturer, and estimated cost. |
+| `dim_fornecedor` | Suppliers with location (city/state), category, and activity status. |
+| `dim_status_pedido` | Domain of purchase order statuses (Open, Sent, Delivered, etc.) with ordering and category. |
+| `dim_tempo` | Analytical calendar from 2022 to 2026. Enables filters by year, month, quarter, and semester. |
+
+#### Facts
+
+| Table | Purpose | Metrics |
+|-------|---------|---------|
+| `fato_horas` | Records hours worked by an employee on a task/project/date. | `horas_trabalhadas`, `custo_horas` |
+| `fato_materiais` | Material commitments in projects over time. | `quantidade_empenhada`, `custo_materiais` |
+| `fato_compras` | Material purchase orders with delivery tracking and lead time. | `quantidade_solicitada`, `quantidade_entregue`, `valor_alocado`, `valor_total`, `lead_time` |
+| `fato_estoque` | Snapshot of inventory quantity per material, project, and date. | `quantidade_estoque` |
+
+---
+
+### 2.3 Integrity Rules and Constraints
+
+- **Foreign keys with `CASCADE`:** All FKs in fact tables (`fato_horas`, `fato_materiais`, `fato_compras`, `fato_estoque`) use `ON DELETE CASCADE`, ensuring that removing a dimension also removes its associated facts.
+- **Dimension cascade:** `dim_projeto` references `dim_programa` with `CASCADE`; `dim_tarefa` references `dim_projeto` with `CASCADE`.
+- **Required fields (`NOT NULL`):** All metric columns in fact tables have `default=0`, ensuring no record is left without a value. FK columns in fact tables are required (except `projeto_id` in `fato_compras`, which can be null when a purchase is not tied to a specific project).
+- **Unique values:** `codigo_programa`, `codigo_projeto`, `codigo_tarefa`, `codigo_material`, and `codigo_fornecedor` are unique within their respective dimensions. `nome_status` is unique in `dim_status_pedido`.
+- **Indexes:** Fact tables have indexes on `tempo_id`, `projeto_id`, and `material_id` to optimize analytical queries used by dashboards.
+
+---
+
+### 2.4 Query Examples for Dashboards
+
+#### Query 1 — Accumulated hours per employee in a project (Django ORM)
+
+Used in the project details dashboard for the hours-per-employee bar chart:
+
+```python
+from django.db.models import Sum
+from api.models import FatoHoras
+
+def get_horas_por_funcionario(projeto_id, data_inicio=None, data_fim=None):
+    qs = FatoHoras.objects.filter(projeto_id=projeto_id)
+
+    if data_inicio:
+        qs = qs.filter(tempo__data__gte=data_inicio)
+    if data_fim:
+        qs = qs.filter(tempo__data__lte=data_fim)
+
+    return (
+        qs
+        .values('funcionario__nome')
+        .annotate(total_horas=Sum('horas_trabalhadas'))
+        .order_by('funcionario__nome')
+    )
+```
+
+Equivalent SQL:
+
+```sql
+SELECT df.nome AS employee,
+       SUM(fh.horas_trabalhadas) AS total_hours
+  FROM fato_horas fh
+  JOIN dim_funcionario df ON fh.funcionario_id = df.id
+ WHERE fh.projeto_id = 1
+   AND fh.tempo_id IN (
+       SELECT id FROM dim_tempo WHERE data BETWEEN '2024-01-01' AND '2024-12-31'
+   )
+ GROUP BY df.nome
+ ORDER BY df.nome;
+```
+
+---
+
+#### Query 2 — Total material cost per project (Django ORM)
+
+Used in the material cost card on the project summary:
+
+```python
+from django.db.models import Sum
+from api.models import FatoMateriais
+
+def get_custo_materiais_projeto(projeto_id):
+    resultado = (
+        FatoMateriais.objects
+        .filter(projeto_id=projeto_id)
+        .aggregate(custo_total=Sum('custo_materiais'))
+    )
+    return resultado['custo_total'] or 0
+```
+
+Equivalent SQL:
+
+```sql
+SELECT SUM(fm.custo_materiais) AS total_cost
+  FROM fato_materiais fm
+ WHERE fm.projeto_id = 1;
+```
+
+---
+
+#### Query 3 — Lead time per supplier for a material (Django ORM)
+
+Used in the purchasing dashboard for supplier analysis:
+
+```python
+from api.models import FatoCompras
+
+compras = (
+    FatoCompras.objects
+    .filter(material_id=material_id, lead_time__isnull=False)
+    .select_related('fornecedor', 'status', 'tempo')
+)
+```
+
+Equivalent SQL:
+
+```sql
+SELECT df.razao_social AS supplier,
+       fc.lead_time,
+       fc.valor_total AS total_value,
+       dsp.nome_status AS status,
+       dt.data AS order_date
+  FROM fato_compras fc
+  JOIN dim_fornecedor df     ON fc.fornecedor_id = df.id
+  JOIN dim_status_pedido dsp ON fc.status_id = dsp.id
+  JOIN dim_tempo dt          ON fc.tempo_id = dt.id
+ WHERE fc.material_id = 42
+   AND fc.lead_time IS NOT NULL
+ ORDER BY dt.data;
+```
+
+</details>
 
 → <a href="#23-de-fevereiro">Back to top</a>
 
@@ -166,6 +564,12 @@ TODO (Sprint 3)
 ## 🚀 Run, Use and Test the Project
 
 TODO (Sprint 3)
+<details>
+
+<summary>Click here</summary>
+A
+
+</details>
 
 → <a href="#23-de-fevereiro">Back to top</a>
 
