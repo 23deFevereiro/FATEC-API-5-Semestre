@@ -5,7 +5,6 @@
     <a href="#introduction">Introduction</a> |
     <a href="#challenge">Challenge</a> |  
     <a href="#solution">Solution</a> |   
-    <a href="#product-backlog">Product Backlog</a> |
     <a href="#project-evolution-timeline">Project Evolution Timeline</a> |
     <a href="#sprint-timeline">Sprint Timeline</a> |
     <a href="#technologies">Technologies</a> |
@@ -66,33 +65,6 @@ Lunae is an analytical platform that integrates data from tasks, projects, progr
 The solution provides an interactive dashboard with bar and line charts that allow managers to track resource consumption, cost evolution, and technical effort by project and program, as well as apply filters to explore different scenarios. With this, Lunae offers a consolidated and multidimensional view, supporting decision-making and strategic management of the company's institutional programs.
 
 </details>
-
-→ <a href="#23-de-fevereiro">Back to top</a>
-
----
-
-<span id="product-backlog">
-
-## 📋 Product Backlog
-
-| Rank | Priority | User Story | Story Points | Sprint | Client Requirement | DoR |
-|------|----------|------------|--------------|--------|-------------------|-----|
-| 1 | 🔴 High | As a project manager, I want to view a bar chart of hours worked per employee to understand the team's effort distribution, separated by project | 8 | 1 | [CR05](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[CR07](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=165341438&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C7) |
-| 2 | 🔴 High | As a manager, I want to filter a specific project and view summary indicators like total cost and total time to quickly understand its overall status | 3 | 1 | [CR11](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[CR12](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=165348614&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C10) [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=167578002&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C25) |
-| 3 | 🔴 High | As a manager, I want to view the evolution of hours worked per project over time in a multi-line chart to track activity progress | 8 | 1 | [CR05](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[08](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=165347588&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C8) |
-| 4 | 🔴 High | As a manager, I want to view the evolution of costs per project over time in a multi-line chart to track spending growth | 8 | 1 | [CR06](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[CR09](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=165347776&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C9) |
-| 5 | 🔴 High | As a manager, I want to view the cost invested in each material through a materials table to assess the financial impact of projects | 3 | 1 | [CR06](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=165350150&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C13) |
-| 6 | 🔴 High | As a manager, I want to view a table of employees with the total hours they have worked and the projects they are allocated to, so that I can understand resource distribution and team effort across projects | 3 | 1 | [CR07](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=165350061&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C12) |
-| 7 | 🟡 Medium | As a manager, I want to view the evolution of hours worked per program over time to track aggregate effort at a strategic level | 8 | 2 | [CR05](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[CR10](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=167289270&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C18) |
-| 8 | 🟡 Medium | As a manager, I want to view the evolution of costs per program over time to analyze the financial behavior of programs | 8 | 2 | [CR06](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[CR10](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=167294467&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C19) |
-| 9 | 🟡 Medium | As a manager, I want to filter a specific program and view summary indicators such as estimated cost, actual cost, estimated hours, actual hours, and total number of projects in the program to quickly understand its overall status | 5 | 2 | [CR06](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[CR10](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[CR12](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=167642161&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C22) |
-| 10 | 🟡 Medium | As a manager, I want to view the distribution of project statuses for a program in a donut chart to quickly understand the progress of initiatives | 5 | 2 | [CR05](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[CR06](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[CR10](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=167643118&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C24) |
-| 11 | 🟡 Medium | As a manager, I want to view a table of projects with hour deviations containing information such as estimated hours, actual hours, task progress, and deviation to identify projects that need attention | 8 | 2 | [CR05](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[CR11](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[CR12](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=167641774&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C26) |
-| 12 | 🟡 Medium | As a manager, I want to view a bar chart of hours worked per program to compare effort across different projects | 5 | 3 | [CR05](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[CR10](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[CR12](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=167642965&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C23) |
-| 13 | 🟡 Medium | As a manager, I want to identify materials with insufficient stock through alert cards showing the most critical materials for project execution to anticipate the need for new purchases | 5 | 3 | [CR11](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/23deFevereiro/FATEC-API-5-Semestre/issues/27) |
-| 14 | 🟡 Medium | As a manager, I want to view the deadline for placing a purchase request based on projected consumption and material lead time to avoid project delays | 5 | 3 | [CR06](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[CR11](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/23deFevereiro/FATEC-API-5-Semestre/issues/29) |
-| 15 | 🟡 Medium | As a manager, I want to view material consumption per project over time in a depletion chart to understand how physical resources are used in projects | 8 | 3 | [CR06](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais)/[CR11](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/3.-Documenta%C3%A7%C3%A3o-de-Produto#requisitos-funcionais) | [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=167643711&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C34) |
-| 16 | 🟢 Low | As a user, I want to log into the system and have access only to the functionalities and views allowed by my profile (Super Admin, Financeiro, Compras, Almoxarifado, Projetos), so that each role sees only what is relevant to their area | 8 | 3 | --- | [Card](https://github.com/users/23deFevereiro/projects/1/views/1?pane=issue&itemId=167641048&issue=23deFevereiro%7CFATEC-API-5-Semestre%7C39) |
 
 → <a href="#23-de-fevereiro">Back to top</a>
 
@@ -177,18 +149,18 @@ CSVs (client) → ETL (Django commands) → PostgreSQL (star schema) → Django 
 
 ### 1.2 Component Diagram
 
-```mermaid
-graph TD
-    CSV[📄 Client CSVs]
-    ETL[⚙️ ETL\nfix_csv + dev_db\nDjango management commands]
-    DB[(🐘 PostgreSQL\ndim_* + fato_*)]
-    API[🐍 Backend\nDjango REST Framework]
-    FE[🖥️ Frontend\nVue.js + ApexCharts]
-
-    CSV -->|raw files| ETL
-    ETL -->|corrected and transformed data| DB
-    DB -->|ORM queries| API
-    API -->|JSON / REST| FE
+```
+┌────────────────┐             ┌───────────────────────────┐             ┌──────────────────────┐
+│  Client CSVs   │  raw files  │  ETL (Django mgmt)        │  clean data │  PostgreSQL          │
+│  (CSV files)   │ ──────────▶ │  fix_csv  ──▶  dev_db     │ ──────────▶ │  dim_* + fato_*      │
+└────────────────┘             └───────────────────────────┘             └──────────┬───────────┘
+                                                                                    │
+                                                                               ORM queries
+                                                                                    │
+                               ┌───────────────────────────┐             ┌──────────▼───────────┐
+                               │  Frontend                 │  JSON/REST  │  Backend             │
+                               │  Vue.js + ApexCharts      │ ◀────────── │  Django REST API     │
+                               └───────────────────────────┘             └──────────────────────┘
 ```
 
 ---
@@ -271,9 +243,38 @@ The project adopts the **Star Schema**, common in analytical applications. Dimen
 
 ### 2.1 Entity-Relationship Diagram
 
-```mermaid
-erDiagram
-    dim_programa {
+```
+                               ┌────────────────────────────────────────────────────────────┐
+                               │                      STAR SCHEMA                           │
+                               └──────────────────────────┬─────────────────────────────────┘
+                                                          │
+          ┌───────────────────────────────────────────────┼──────────────────────────────────────────┐
+          │                           │                   │                         │                │
+          ▼                           ▼                   ▼                         ▼                │
+  ┌────────────────┐         ┌─────────────────┐  ┌──────────────────┐     ┌──────────────────┐      │
+  │  fato_horas    │         │ fato_materiais  │  │  fato_compras    │     │  fato_estoque    │      │
+  └───────┬────────┘         └────────┬────────┘  └────────┬─────────┘     └────────┬─────────┘      │
+          │                           │                    │                        │                │
+          ├─ dim_tempo ───────────────┼────────────────────┼────────────────────────┼                │
+          ├─ dim_projeto ─────────────┼────────────────────┘                        │                │
+          ├─ dim_programa ────────────┼                    │                        │                │
+          ├─ dim_tarefa               │                    │                        │                │
+          └─ dim_funcionario          │                    │                        │                │
+                                      ├─ dim_material ─────┼────────────────────────┼────────────────┘
+                                      └─ dim_fornecedor ───┼────────────────────────┼
+                                                           └─ dim_status_pedido ────┘
+```
+
+> **Dimensional hierarchy:** `dim_programa` → `dim_projeto` → `dim_tarefa`
+
+| Fact Table | Dimension FKs |
+|---|---|
+| `fato_horas` | `dim_tempo`, `dim_projeto`, `dim_programa`, `dim_tarefa`, `dim_funcionario` |
+| `fato_materiais` | `dim_tempo`, `dim_projeto`, `dim_programa`, `dim_material`, `dim_fornecedor` |
+| `fato_compras` | `dim_tempo`, `dim_projeto`, `dim_material`, `dim_fornecedor`, `dim_status_pedido` |
+| `fato_estoque` | `dim_tempo`, `dim_projeto`, `dim_material` |
+
+<!--
         int id PK
         string codigo_programa
         string nome_programa
@@ -412,7 +413,7 @@ erDiagram
     dim_material ||--o{ fato_estoque : "referenced in"
     dim_projeto ||--o{ fato_estoque : "referenced in"
     dim_tempo ||--o{ fato_estoque : "referenced in"
-```
+-->
 
 ---
 
