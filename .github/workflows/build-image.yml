@@ -1,0 +1,167 @@
+name: Build Lunae VM image
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Versão da imagem (vira parte do nome do arquivo no bucket)"
+        required: true
+        default: "dev"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    env:
+      VERSION: ${{ github.event.inputs.version }}
+      IMAGE_FILE: lunae-${{ github.event.inputs.version }}.ova
+      OCI_CLI_USER:        ${{ secrets.OCI_USER_OCID }}
+      OCI_CLI_TENANCY:     ${{ secrets.OCI_TENANCY_OCID }}
+      OCI_CLI_FINGERPRINT: ${{ secrets.OCI_FINGERPRINT }}
+      OCI_CLI_REGION:      ${{ secrets.OCI_REGION }}
+      OCI_CLI_KEY_CONTENT: ${{ secrets.OCI_PRIVATE_KEY }}
+      OCI_NAMESPACE:       ${{ secrets.OCI_NAMESPACE }}
+      OCI_BUCKET:          ${{ secrets.OCI_BUCKET }}
+
+    steps:
+      # ─── 1. Checkout (com submódulos: back + front) ──────────────────
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      # ─── 2. Build do frontend ────────────────────────────────────────
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Build frontend (Vite)
+        working-directory: API_5_SEM_FRONT
+        env:
+          VITE_API_URL: /api
+        run: |
+          npm ci
+          npm run build
+
+      # ─── 3. Empacotar back + front em tarballs ───────────────────────
+      - name: Pack backend tarball
+        run: |
+          tar --exclude='API_5_SEM_BACK/.venv' \
+              --exclude='API_5_SEM_BACK/venv' \
+              --exclude='API_5_SEM_BACK/__pycache__' \
+              --exclude='API_5_SEM_BACK/.git' \
+              --exclude='API_5_SEM_BACK/.pytest_cache' \
+              --exclude='API_5_SEM_BACK/loadtests' \
+              --exclude='API_5_SEM_BACK/docs' \
+              -czf backend.tar.gz API_5_SEM_BACK
+
+      - name: Pack frontend tarball
+        run: |
+          tar -czf frontend.tar.gz -C API_5_SEM_FRONT/dist .
+
+      # ─── 4. Instalar VirtualBox + qemu-utils (pra conversão final) ───
+      - name: Install VirtualBox
+        run: |
+          # Detectar o módulo KVM em uso (varia conforme CPU do runner:
+          # Intel = kvm_intel, AMD = kvm_amd). GHA mistura os dois hoje.
+          echo "Módulos KVM carregados antes:"
+          lsmod | grep -E '^kvm' || echo "(nenhum)"
+
+          # Descarregar nessa ordem: filho (intel/amd) antes do pai (kvm).
+          sudo modprobe -r kvm_intel 2>/dev/null || true
+          sudo modprobe -r kvm_amd   2>/dev/null || true
+          sudo modprobe -r kvm       2>/dev/null || true
+
+          echo "Módulos KVM carregados depois:"
+          lsmod | grep -E '^kvm' || echo "(nenhum — ok)"
+
+          sudo apt-get update
+          sudo apt-get install -y virtualbox virtualbox-dkms
+
+          # Garantir que vboxdrv carregou
+          sudo /sbin/vboxconfig || true
+          sudo modprobe vboxdrv
+          lsmod | grep vbox
+
+          vboxmanage --version
+
+      - name: Install Packer
+        uses: hashicorp/setup-packer@v3
+        with:
+          version: "1.11.2"
+
+      # ─── 4b. Chave SSH efêmera para o autoinstall + Packer ───────────
+      - name: Generate ephemeral SSH key
+        run: |
+          ssh-keygen -t ed25519 -N "" -f packer-ssh-key -C "packer-build"
+          PUB_KEY=$(cat packer-ssh-key.pub)
+          # Injeta a pública no user-data do autoinstall.
+          sed -i "s|SSH_PUBLIC_KEY_PLACEHOLDER|${PUB_KEY}|" \
+            infra/packer/http/user-data
+          echo "Pub key injetada em infra/packer/http/user-data:"
+          grep "authorized-keys" -A 1 infra/packer/http/user-data
+
+      # ─── 5. Resolver ISO atual do Ubuntu 24.04 ───────────────────────
+      - name: Resolver URL e checksum do ISO
+        run: |
+          SUMS_URL="https://releases.ubuntu.com/24.04/SHA256SUMS"
+          # SHA256SUMS pode listar mais de um point release ao mesmo tempo
+          # (ex.: 24.04.3 e 24.04.4). Pegamos a versão mais alta via sort -V.
+          LINE=$(curl -fsSL "$SUMS_URL" \
+            | grep '\*ubuntu-.*-live-server-amd64\.iso$' \
+            | sort -k2 -V \
+            | tail -n 1)
+          if [ -z "$LINE" ]; then
+            echo "ERRO: não achei o live-server amd64 no SHA256SUMS:"
+            curl -fsSL "$SUMS_URL"
+            exit 1
+          fi
+          SHA=$(echo "$LINE" | awk '{print $1}')
+          NAME=$(echo "$LINE" | awk '{print $2}' | sed 's|^\*||')
+          echo "ISO_URL=https://releases.ubuntu.com/24.04/${NAME}" >> "$GITHUB_ENV"
+          echo "ISO_CHECKSUM=sha256:${SHA}" >> "$GITHUB_ENV"
+          echo "Resolved ISO: ${NAME}"
+          echo "Checksum:    ${SHA}"
+
+      # ─── 6. Build da imagem ──────────────────────────────────────────
+      - name: Packer init
+        working-directory: infra/packer
+        run: packer init .
+
+      - name: Packer build
+        working-directory: infra/packer
+        env:
+          PACKER_LOG: "1"
+        run: |
+          packer build \
+            -var "version=${VERSION}" \
+            -var "iso_url=${ISO_URL}" \
+            -var "iso_checksum=${ISO_CHECKSUM}" \
+            -var "ssh_private_key_file=${GITHUB_WORKSPACE}/packer-ssh-key" \
+            .
+
+      - name: Confirmar OVA gerado
+        run: |
+          ls -lh infra/packer/output/
+          test -f "infra/packer/output/${IMAGE_FILE}"
+
+      # ─── 6. Upload do OVA pro bucket OCI ─────────────────────────────
+      - name: Install OCI CLI
+        run: pip install --upgrade oci-cli
+
+      - name: Upload image to OCI bucket
+        run: |
+          oci os object put \
+            --namespace "${OCI_NAMESPACE}" \
+            --bucket-name "${OCI_BUCKET}" \
+            --name "${IMAGE_FILE}" \
+            --file "infra/packer/output/${IMAGE_FILE}" \
+            --force \
+            --auth api_key
+
+      - name: Print download URL
+        run: |
+          echo "Imagem disponível em:"
+          echo "https://objectstorage.${OCI_CLI_REGION}.oraclecloud.com/n/${OCI_NAMESPACE}/b/${OCI_BUCKET}/o/${IMAGE_FILE}"

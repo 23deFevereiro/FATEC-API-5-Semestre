@@ -1,0 +1,32 @@
+# /etc/systemd/system/lunae-backend.service
+# Gunicorn rodando como serviço. Espera o cloud-init terminar (que vai
+# escrever o .env via user_data do cliente) antes de subir.
+
+[Unit]
+Description=Lunae backend (Gunicorn)
+After=network.target cloud-final.service
+Wants=cloud-final.service
+# Não inicia o serviço se o .env não existe — evita crashes em loop
+# antes do cliente passar a config via cloud-init.
+ConditionPathExists=/opt/lunae/backend/.env
+
+[Service]
+Type=simple
+User=lunae
+Group=lunae
+WorkingDirectory=/opt/lunae/backend
+EnvironmentFile=/opt/lunae/backend/.env
+# GUNICORN_WORKERS vem do .env. Default = 3 (1 vCPU).
+# No upgrade pra 4 vCPUs no mês 12, o cliente atualiza pra 9 no .env.
+Environment="GUNICORN_WORKERS=3"
+ExecStart=/opt/lunae/backend/.venv/bin/gunicorn api.wsgi:application \
+    --bind 127.0.0.1:8000 \
+    --workers ${GUNICORN_WORKERS} \
+    --timeout 120 \
+    --access-logfile - \
+    --error-logfile -
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
