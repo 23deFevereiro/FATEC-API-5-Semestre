@@ -1,0 +1,20 @@
+#cloud-config
+# cloud-init usado APENAS durante o build da imagem.
+# Cria o usuário "ubuntu" com a chave pública que o Packer vai usar pra
+# se conectar via SSH. A chave é gerada no momento do build (GHA) e
+# injetada aqui por substituição.
+
+users:
+  - name: ubuntu
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - SSH_PUBLIC_KEY_PLACEHOLDER
+
+ssh_pwauth: false
+disable_root: true
+
+# Garantir que o cloud-init "build" não sobrevive na imagem final.
+# O provision.sh limpa o estado depois.
+package_update: false
+package_upgrade: false
