@@ -11,11 +11,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 45
 
     env:
       VERSION: ${{ github.event.inputs.version }}
-      IMAGE_FILE: lunae-${{ github.event.inputs.version }}.ova
+      IMAGE_FILE: lunae-${{ github.event.inputs.version }}.qcow2
+      # OCI Object Storage — preencher como GitHub Secrets
       OCI_CLI_USER:        ${{ secrets.OCI_USER_OCID }}
       OCI_CLI_TENANCY:     ${{ secrets.OCI_TENANCY_OCID }}
       OCI_CLI_FINGERPRINT: ${{ secrets.OCI_FINGERPRINT }}
@@ -40,7 +41,7 @@ jobs:
       - name: Build frontend (Vite)
         working-directory: API_5_SEM_FRONT
         env:
-          VITE_API_URL: /api
+          VITE_API_URL:
         run: |
           npm ci
           npm run build
@@ -61,69 +62,28 @@ jobs:
         run: |
           tar -czf frontend.tar.gz -C API_5_SEM_FRONT/dist .
 
-      # ─── 4. Instalar VirtualBox + qemu-utils (pra conversão final) ───
-      - name: Install VirtualBox
+      # ─── 4. Instalar Packer + QEMU/KVM no runner ─────────────────────
+      - name: Install QEMU/KVM
         run: |
-          # Detectar o módulo KVM em uso (varia conforme CPU do runner:
-          # Intel = kvm_intel, AMD = kvm_amd). GHA mistura os dois hoje.
-          echo "Módulos KVM carregados antes:"
-          lsmod | grep -E '^kvm' || echo "(nenhum)"
-
-          # Descarregar nessa ordem: filho (intel/amd) antes do pai (kvm).
-          sudo modprobe -r kvm_intel 2>/dev/null || true
-          sudo modprobe -r kvm_amd   2>/dev/null || true
-          sudo modprobe -r kvm       2>/dev/null || true
-
-          echo "Módulos KVM carregados depois:"
-          lsmod | grep -E '^kvm' || echo "(nenhum — ok)"
-
           sudo apt-get update
-          sudo apt-get install -y virtualbox virtualbox-dkms
-
-          # Garantir que vboxdrv carregou
-          sudo /sbin/vboxconfig || true
-          sudo modprobe vboxdrv
-          lsmod | grep vbox
-
-          vboxmanage --version
+          sudo apt-get install -y qemu-system-x86 qemu-utils ovmf
+          # Conferir que /dev/kvm é acessível (runners ubuntu-latest têm)
+          ls -l /dev/kvm
+          sudo usermod -aG kvm "$USER"
 
       - name: Install Packer
         uses: hashicorp/setup-packer@v3
         with:
           version: "1.11.2"
 
-      # ─── 4b. Chave SSH efêmera para o autoinstall + Packer ───────────
+      # ─── 5. Chave SSH efêmera para o build ───────────────────────────
       - name: Generate ephemeral SSH key
         run: |
           ssh-keygen -t ed25519 -N "" -f packer-ssh-key -C "packer-build"
           PUB_KEY=$(cat packer-ssh-key.pub)
-          # Injeta a pública no user-data do autoinstall.
+          # Substitui o placeholder no cloud-init de build
           sed -i "s|SSH_PUBLIC_KEY_PLACEHOLDER|${PUB_KEY}|" \
-            infra/packer/http/user-data
-          echo "Pub key injetada em infra/packer/http/user-data:"
-          grep "authorized-keys" -A 1 infra/packer/http/user-data
-
-      # ─── 5. Resolver ISO atual do Ubuntu 24.04 ───────────────────────
-      - name: Resolver URL e checksum do ISO
-        run: |
-          SUMS_URL="https://releases.ubuntu.com/24.04/SHA256SUMS"
-          # SHA256SUMS pode listar mais de um point release ao mesmo tempo
-          # (ex.: 24.04.3 e 24.04.4). Pegamos a versão mais alta via sort -V.
-          LINE=$(curl -fsSL "$SUMS_URL" \
-            | grep '\*ubuntu-.*-live-server-amd64\.iso$' \
-            | sort -k2 -V \
-            | tail -n 1)
-          if [ -z "$LINE" ]; then
-            echo "ERRO: não achei o live-server amd64 no SHA256SUMS:"
-            curl -fsSL "$SUMS_URL"
-            exit 1
-          fi
-          SHA=$(echo "$LINE" | awk '{print $1}')
-          NAME=$(echo "$LINE" | awk '{print $2}' | sed 's|^\*||')
-          echo "ISO_URL=https://releases.ubuntu.com/24.04/${NAME}" >> "$GITHUB_ENV"
-          echo "ISO_CHECKSUM=sha256:${SHA}" >> "$GITHUB_ENV"
-          echo "Resolved ISO: ${NAME}"
-          echo "Checksum:    ${SHA}"
+            infra/packer/cloud-init-build/user-data
 
       # ─── 6. Build da imagem ──────────────────────────────────────────
       - name: Packer init
@@ -132,24 +92,21 @@ jobs:
 
       - name: Packer build
         working-directory: infra/packer
-        env:
-          PACKER_LOG: "1"
         run: |
           packer build \
             -var "version=${VERSION}" \
-            -var "iso_url=${ISO_URL}" \
-            -var "iso_checksum=${ISO_CHECKSUM}" \
             -var "ssh_private_key_file=${GITHUB_WORKSPACE}/packer-ssh-key" \
             .
 
-      - name: Confirmar OVA gerado
+      - name: Confirmar artefato gerado
         run: |
           ls -lh infra/packer/output/
           test -f "infra/packer/output/${IMAGE_FILE}"
 
-      # ─── 6. Upload do OVA pro bucket OCI ─────────────────────────────
+      # ─── 7. Upload pra OCI Object Storage ────────────────────────────
       - name: Install OCI CLI
-        run: pip install --upgrade oci-cli
+        run: |
+          pip install --upgrade oci-cli
 
       - name: Upload image to OCI bucket
         run: |
