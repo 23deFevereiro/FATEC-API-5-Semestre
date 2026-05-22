@@ -23,11 +23,6 @@ write_files:
       DEBUG=False
       ALLOWED_HOSTS=<DOMAIN>,<INSTANCE_IP>,127.0.0.1
 
-      # Gunicorn — ajustar conforme vCPUs:
-      #   1 vCPU → 3
-      #   4 vCPUs → 9
-      GUNICORN_WORKERS=3
-
 # Inicia os serviços após o .env ser escrito.
 # O systemd unit do backend tem ConditionPathExists=/opt/lunae/backend/.env,
 # então sem este passo o serviço ficaria parado.
