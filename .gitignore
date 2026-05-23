@@ -1,5 +1,9 @@
 .env
 node_modules
 .vscode
+infra/packer/keys
+infra/packer/cloud-init/user-data
 
 !.devcontainer/.env
+
+**.qcow2

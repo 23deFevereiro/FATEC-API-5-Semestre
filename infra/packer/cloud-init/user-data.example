@@ -1,0 +1,9 @@
+#cloud-config
+
+# Injeta a chave pública gerada acima
+ssh_authorized_keys:
+  - ssh-rsa AAA... user@host # Generate a new key pair and replace this with the .pub
+
+# Usuário debian já existe na imagem cloud
+# Dá sudo sem senha pro Packer provisionar
+sudo: ALL=(ALL) NOPASSWD:ALL
