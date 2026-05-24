@@ -3,6 +3,9 @@ node_modules
 .vscode
 infra/packer/keys
 infra/packer/cloud-init/user-data
+infra/packer/files/backend.tar.gz
+infra/packer/files/frontend.tar.gz
+infra/packer/output/
 
 !.devcontainer/.env
 

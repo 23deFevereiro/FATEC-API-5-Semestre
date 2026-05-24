@@ -46,21 +46,29 @@ jobs:
           npm ci
           npm run build
 
-      # ─── 3. Empacotar back + front em tarballs ───────────────────────
+      # ─── 3. Empacotar back + front em tarballs (no lugar certo) ──────
+      # Packer roda com working-directory=infra/packer, então os paths
+      # do HCL são `./files/*.tar.gz`. Geramos os tarballs lá.
       - name: Pack backend tarball
         run: |
-          tar --exclude='API_5_SEM_BACK/.venv' \
-              --exclude='API_5_SEM_BACK/venv' \
-              --exclude='API_5_SEM_BACK/__pycache__' \
-              --exclude='API_5_SEM_BACK/.git' \
-              --exclude='API_5_SEM_BACK/.pytest_cache' \
-              --exclude='API_5_SEM_BACK/loadtests' \
-              --exclude='API_5_SEM_BACK/docs' \
-              -czf backend.tar.gz API_5_SEM_BACK
+          mkdir -p infra/packer/files
+          tar --exclude='.venv' \
+              --exclude='venv' \
+              --exclude='__pycache__' \
+              --exclude='.git' \
+              --exclude='.pytest_cache' \
+              --exclude='loadtests' \
+              --exclude='docs' \
+              --exclude='.coverage' \
+              --exclude='coverage.xml' \
+              --transform 's,^API_5_SEM_BACK,API_5_SEM_BACK,' \
+              -czf infra/packer/files/backend.tar.gz \
+              API_5_SEM_BACK
 
       - name: Pack frontend tarball
         run: |
-          tar -czf frontend.tar.gz -C API_5_SEM_FRONT/dist .
+          mkdir -p infra/packer/files
+          tar -czf infra/packer/files/frontend.tar.gz -C API_5_SEM_FRONT/dist .
 
       # ─── 4. Instalar Packer + QEMU/KVM no runner ─────────────────────
       - name: Install QEMU/KVM
@@ -76,16 +84,31 @@ jobs:
         with:
           version: "1.11.2"
 
-      # ─── 5. Chave SSH efêmera para o build ───────────────────────────
-      - name: Generate ephemeral SSH key
+      # ─── 5. Chave SSH efêmera + cloud-init/user-data ─────────────────
+      - name: Generate ephemeral SSH key and user-data
         run: |
-          ssh-keygen -t ed25519 -N "" -f packer-ssh-key -C "packer-build"
-          PUB_KEY=$(cat packer-ssh-key.pub)
-          # Substitui o placeholder no cloud-init de build
-          sed -i "s|SSH_PUBLIC_KEY_PLACEHOLDER|${PUB_KEY}|" \
-            infra/packer/cloud-init-build/user-data
+          mkdir -p infra/packer/keys
+          ssh-keygen -t ed25519 -N "" \
+            -f infra/packer/keys/packer.pem \
+            -C "packer-build"
+          # ssh-keygen cria packer.pem.pub — padroniza pra .pub
+          mv infra/packer/keys/packer.pem.pub infra/packer/keys/packer.pub
+          chmod 600 infra/packer/keys/packer.pem
 
-      # ─── 6. Build da imagem ──────────────────────────────────────────
+          PUB_KEY=$(cat infra/packer/keys/packer.pub)
+          # Gera user-data a partir do .example (substitui placeholder)
+          sed "s|SSH_PUBLIC_KEY_PLACEHOLDER|${PUB_KEY}|" \
+            infra/packer/cloud-init/user-data.example \
+            > infra/packer/cloud-init/user-data
+
+      # ─── 6. Baixar imagem cloud base do Debian ───────────────────────
+      - name: Download Debian cloud image
+        working-directory: infra/packer
+        run: |
+          curl -fsSL -o debian-12-genericcloud-amd64.qcow2 \
+            https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2
+
+      # ─── 7. Build da imagem ──────────────────────────────────────────
       - name: Packer init
         working-directory: infra/packer
         run: packer init .
@@ -95,7 +118,7 @@ jobs:
         run: |
           packer build \
             -var "version=${VERSION}" \
-            -var "ssh_private_key_file=${GITHUB_WORKSPACE}/packer-ssh-key" \
+            -var "ssh_private_key_file=./keys/packer.pem" \
             .
 
       - name: Confirmar artefato gerado
@@ -103,7 +126,7 @@ jobs:
           ls -lh infra/packer/output/
           test -f "infra/packer/output/${IMAGE_FILE}"
 
-      # ─── 7. Upload pra OCI Object Storage ────────────────────────────
+      # ─── 8. Upload pra OCI Object Storage ────────────────────────────
       - name: Install OCI CLI
         run: |
           pip install --upgrade oci-cli
