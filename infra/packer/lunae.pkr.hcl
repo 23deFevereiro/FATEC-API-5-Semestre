@@ -25,12 +25,12 @@ variable "disk_size" {
 }
 
 variable "iso_url" {
-  description = "Caminho/URL para a imagem cloud base (qcow2)"
-  default     = "./debian-12-genericcloud-amd64.qcow2"
+  description = "Caminho/URL para a imagem cloud base"
+  default     = "./jammy-server-cloudimg-amd64.img"
 }
 
 variable "iso_checksum" {
-  default = "sha512:774bee87378198fe9c52285c61de05bd5daac22ea54856040f9b38465e86c960d54f4667dcb71ab1117b372731131704e646a586bdbb48c56b9e5e2583cd0f23"
+  default = "https://cloud-images.ubuntu.com/jammy/current/SHA256SUMS"
 }
 
 variable "ssh_private_key_file" {
@@ -40,7 +40,7 @@ variable "ssh_private_key_file" {
 
 # ─── Source ───────────────────────────────────────────────────────────────────
 
-source "qemu" "debian12" {
+source "qemu" "ubuntu2204" {
   memory = 4096
   cpus   = 3
 
@@ -56,35 +56,26 @@ source "qemu" "debian12" {
 
   # KVM se disponível no host; o builder cai para tcg automaticamente
   # se /dev/kvm não estiver acessível. Em CI (ubuntu-latest) tem KVM.
-  accelerator = "kvm"
+  accelerator = "tcg"
 
-  # Hardware moderno — virtio é o que as cloud images têm driver pronto.
-  # Sem isto, o builder usa rtl8139, que em algumas imagens não sobe a
-  # tempo e quebra o DHCP/DNS durante o provisionamento.
-  machine_type   = "q35"
-  net_device     = "virtio-net"
-  disk_interface = "virtio"
+  # machine_type   = "q35"
+  # net_device     = "virtio-net"
+  # disk_interface = "virtio"
 
-  # Força DNS público no SLIRP — evita o caso em que o /etc/resolv.conf
-  # do host só aponta pra 127.0.0.53 (systemd-resolved stub), o que faria
-  # a VM herdar um DNS inalcançável e dar "Temporary failure resolving".
-  qemuargs = [
-    ["-netdev", "user,id=user.0,hostfwd=tcp::{{ .SSHHostPort }}-:22,dns=8.8.8.8"],
-    ["-device", "virtio-net,netdev=user.0"],
-  ]
+  # qemuargs = [
+  #   ["-netdev", "user,id=user.0,hostfwd=tcp::{{ .SSHHostPort }}-:22,dns=8.8.8.8"],
+  #   ["-device", "virtio-net,netdev=user.0"],
+  # ]
 
   # Imagem cloud do Debian usa usuário "debian" por padrão
-  ssh_username         = "debian"
+  ssh_username         = "ubuntu"
   ssh_timeout          = "10m"
   ssh_private_key_file = var.ssh_private_key_file
 
   # NoCloud datasource — exige arquivos com nome exato `user-data` e `meta-data`.
   # `user-data` é gerado/copiado a partir do `.example` pelo workflow (ou pelo
   # script local em scripts/build-artifacts.sh) e está no .gitignore.
-  cd_files = [
-    "./cloud-init/user-data",
-    "./cloud-init/meta-data",
-  ]
+  cd_files = ["./cloud-init/*"]
   cd_label = "cidata"
 
   output_directory = "output"

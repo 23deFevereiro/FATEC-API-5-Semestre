@@ -10,3 +10,4 @@ infra/packer/output/
 !.devcontainer/.env
 
 **.qcow2
+**.img
