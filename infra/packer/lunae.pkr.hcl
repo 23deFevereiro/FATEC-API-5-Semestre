@@ -26,11 +26,11 @@ variable "disk_size" {
 
 variable "iso_url" {
   description = "Caminho/URL para a imagem cloud base"
-  default     = "./jammy-server-cloudimg-amd64.img"
+  default     = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
 }
 
 variable "iso_checksum" {
-  default = "https://cloud-images.ubuntu.com/jammy/current/SHA256SUMS"
+  default = "file:https://cloud-images.ubuntu.com/noble/current/SHA256SUMS"
 }
 
 variable "ssh_private_key_file" {
@@ -40,7 +40,7 @@ variable "ssh_private_key_file" {
 
 # ─── Source ───────────────────────────────────────────────────────────────────
 
-source "qemu" "ubuntu2204" {
+source "qemu" "ubuntu_noble" {
   memory = 4096
   cpus   = 3
 
@@ -69,13 +69,13 @@ source "qemu" "ubuntu2204" {
 
   # Imagem cloud do Debian usa usuário "debian" por padrão
   ssh_username         = "ubuntu"
-  ssh_timeout          = "10m"
+  ssh_timeout          = "20m"
   ssh_private_key_file = var.ssh_private_key_file
 
   # NoCloud datasource — exige arquivos com nome exato `user-data` e `meta-data`.
   # `user-data` é gerado/copiado a partir do `.example` pelo workflow (ou pelo
   # script local em scripts/build-artifacts.sh) e está no .gitignore.
-  cd_files = ["./cloud-init/*"]
+  cd_files = ["./cloud-init/user-data", "./cloud-init/meta-data"]
   cd_label = "cidata"
 
   output_directory = "output"
@@ -85,7 +85,7 @@ source "qemu" "ubuntu2204" {
 # ─── Build ────────────────────────────────────────────────────────────────────
 
 build {
-  sources = ["source.qemu.debian12"]
+  sources = ["source.qemu.ubuntu_noble"]
 
   provisioner "shell" {
     inline = [

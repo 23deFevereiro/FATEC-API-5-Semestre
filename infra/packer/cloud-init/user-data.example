@@ -1,19 +1,7 @@
 #cloud-config
-# Cloud-init usado APENAS durante o build da imagem (NoCloud / cidata).
-#
-# Copie este arquivo para `user-data` (sem .example) antes de rodar o Packer.
-# O `user-data` real está no .gitignore — ele leva a chave pública efêmera
-# usada pelo Packer pra entrar via SSH na VM de build.
-#
-# - Local:   scripts/build-artifacts.sh já gera o user-data com a chave certa
-# - CI:      .github/workflows/build-image.yml gera o par de chaves e
-#            substitui SSH_PUBLIC_KEY_PLACEHOLDER abaixo
-
-# A imagem cloud do Debian já cria o usuário `debian` com NOPASSWD sudo.
-# Só precisamos plugar a chave pública nele.
 users:
   - default
-  - name: debian
+  - name: ubuntu
     sudo: ALL=(ALL) NOPASSWD:ALL
     shell: /bin/bash
     ssh_authorized_keys:
