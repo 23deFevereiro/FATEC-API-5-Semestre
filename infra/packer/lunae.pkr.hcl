@@ -72,29 +72,39 @@ build {
     inline = [
       "echo '>> aguardando cloud-init terminar'",
       "cloud-init status --wait",
-      "sudo mkdir -p /var/www/lunae /tmp/packer",
-      "sudo chmod 777 /var/www/lunae /tmp/packer",
+      "sudo mkdir -p /var/www/lunae /opt/packer",
+      "sudo chmod 777 /var/www/lunae /opt/packer",
     ]
   }
 
   provisioner "file" {
     source      = "./files/backend.tar.gz"
-    destination = "/tmp/packer/backend.tar.gz"
+    destination = "/opt/packer/backend.tar.gz"
   }
 
   provisioner "file" {
     source      = "./files/frontend.tar.gz"
-    destination = "/tmp/packer/frontend.tar.gz"
+    destination = "/opt/packer/frontend.tar.gz"
   }
 
   provisioner "file" {
     source      = "./files/nginx-site.conf"
-    destination = "/tmp/packer/nginx-site.conf"
+    destination = "/opt/packer/nginx-site.conf"
   }
 
   provisioner "file" {
     source      = "./files/lunae-backend.service"
-    destination = "/tmp/packer/lunae-backend.service"
+    destination = "/opt/packer/lunae-backend.service"
+  }
+
+  provisioner "shell" {
+    inline = [
+      "echo '>> conteúdo de /opt/packer antes do install.sh'",
+      "ls -lh /opt/packer/",
+      "cat /opt/packer/nginx-site.conf",
+      "cat /opt/packer/lunae-backend.service",
+      "echo '---------------------------------'",
+    ]
   }
 
   provisioner "shell" {

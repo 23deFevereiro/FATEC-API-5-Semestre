@@ -74,6 +74,7 @@ jobs:
         run: |
           mkdir -p infra/packer/files
           tar -czf infra/packer/files/frontend.tar.gz -C API_5_SEM_FRONT/dist .
+          ls -lh infra/packer/files/
 
       # ─── 4. Instalar Packer + QEMU/KVM no runner ─────────────────────
       - name: Install QEMU/KVM
