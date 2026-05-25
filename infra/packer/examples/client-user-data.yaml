@@ -1,28 +1,9 @@
 #cloud-config
-# ─────────────────────────────────────────────────────────────────────────────
-# Cloud-init de CLIENTE — usado no primeiro boot da VM Lunae em produção.
-#
-# Não confundir com infra/packer/cloud-init/user-data.example (que é o
-# cloud-init usado DURANTE o build da imagem, lá só pra injetar a chave SSH
-# do Packer).
-#
-# Este aqui é o que o cliente final monta num seed ISO (label `cidata`) e
-# anexa como CD-ROM na VM antes do primeiro boot. O cloud-init lê e:
-#   1. cria /opt/lunae/backend/.env  → libera o lunae-backend.service
-#      (que tem ConditionPathExists=/opt/lunae/backend/.env)
-#   2. adiciona a chave SSH do operador no usuário ubuntu
-#   3. reinicia o service caso ele tenha falhado no boot
-#
-# Como gerar o seed ISO:
-#   genisoimage -output lunae-seed.iso -volid cidata -joliet -rock \
-#               user-data meta-data
-# ─────────────────────────────────────────────────────────────────────────────
 
-# Chave pública pra você acessar a VM via SSH em runtime
 users:
   - name: ubuntu
-    password: ubuntu
-    type: text
+    plain_text_passwd: ubuntu
+    lock_passwd: false
     sudo: ALL=(ALL) NOPASSWD:ALL
     shell: /bin/bash
     ssh_authorized_keys:
@@ -30,10 +11,6 @@ users:
 
 ssh_pwauth: false
 
-# ─── .env do backend ─────────────────────────────────────────────────────────
-# A presença deste arquivo destrava o lunae-backend.service.
-# Os nomes das variáveis seguem o que o Django/projeto espera —
-# ver API_5_SEM_BACK/.env.deploy.example.
 write_files:
   - path: /opt/lunae/backend/.env
     owner: lunae:lunae
@@ -50,11 +27,3 @@ write_files:
       SECRET_KEY=gere-uma-chave-aleatoria-aqui
       DEBUG=False
       ALLOWED_HOSTS=lunae.exemplo.com,127.0.0.1,localhost
-
-# ─── pós-boot ────────────────────────────────────────────────────────────────
-# Como o lunae-backend.service falhou no boot (sem .env), a gente força
-# o restart depois que o write_files acima já rodou.
-runcmd:
-  - systemctl daemon-reload
-  - systemctl restart lunae-backend.service
-  - systemctl reload nginx

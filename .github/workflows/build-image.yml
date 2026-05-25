@@ -16,7 +16,6 @@ jobs:
     env:
       VERSION: ${{ github.event.inputs.version }}
       IMAGE_FILE: lunae-${{ github.event.inputs.version }}.qcow2
-      # OCI Object Storage — preencher como GitHub Secrets
       OCI_CLI_USER:        ${{ secrets.OCI_USER_OCID }}
       OCI_CLI_TENANCY:     ${{ secrets.OCI_TENANCY_OCID }}
       OCI_CLI_FINGERPRINT: ${{ secrets.OCI_FINGERPRINT }}
@@ -47,8 +46,6 @@ jobs:
           npm run build
 
       # ─── 3. Empacotar back + front em tarballs (no lugar certo) ──────
-      # Packer roda com working-directory=infra/packer, então os paths
-      # do HCL são `./files/*.tar.gz`. Geramos os tarballs lá.
       - name: Pack backend tarball
         run: |
           mkdir -p infra/packer/files
@@ -101,14 +98,7 @@ jobs:
             infra/packer/cloud-init/user-data.example \
             > infra/packer/cloud-init/user-data
 
-      # ─── 6. Baixar imagem cloud base do Debian ───────────────────────
-      - name: Download Debian cloud image
-        working-directory: infra/packer
-        run: |
-          curl -fsSL -o debian-12-genericcloud-amd64.qcow2 \
-            https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2
-
-      # ─── 7. Build da imagem ──────────────────────────────────────────
+      # ─── 6. Build da imagem ──────────────────────────────────────────
       - name: Packer init
         working-directory: infra/packer
         run: packer init .
@@ -126,7 +116,7 @@ jobs:
           ls -lh infra/packer/output/
           test -f "infra/packer/output/${IMAGE_FILE}"
 
-      # ─── 8. Upload pra OCI Object Storage ────────────────────────────
+      # ─── 7. Upload pra OCI Object Storage ────────────────────────────
       - name: Install OCI CLI
         run: |
           pip install --upgrade oci-cli

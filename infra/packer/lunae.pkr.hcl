@@ -7,10 +7,7 @@ packer {
   }
 }
 
-# ─── Variáveis ────────────────────────────────────────────────────────────────
-# Paths são relativos a este arquivo (que o workflow chama com
-# `working-directory: infra/packer`). Não prefixe com `infra/packer/`.
-
+# ─── Variables ────────────────────────────────────────────────────────────────
 variable "vm_name" {
   default = "lunae"
 }
@@ -44,7 +41,6 @@ source "qemu" "ubuntu_noble" {
   memory = 4096
   cpus   = 3
 
-  # Imagem cloud já instalada — sem instalador
   disk_image   = true
   iso_url      = var.iso_url
   iso_checksum = var.iso_checksum
@@ -54,27 +50,12 @@ source "qemu" "ubuntu_noble" {
 
   headless = true
 
-  # KVM se disponível no host; o builder cai para tcg automaticamente
-  # se /dev/kvm não estiver acessível. Em CI (ubuntu-latest) tem KVM.
   accelerator = "tcg"
 
-  # machine_type   = "q35"
-  # net_device     = "virtio-net"
-  # disk_interface = "virtio"
-
-  # qemuargs = [
-  #   ["-netdev", "user,id=user.0,hostfwd=tcp::{{ .SSHHostPort }}-:22,dns=8.8.8.8"],
-  #   ["-device", "virtio-net,netdev=user.0"],
-  # ]
-
-  # Imagem cloud do Debian usa usuário "debian" por padrão
   ssh_username         = "ubuntu"
   ssh_timeout          = "20m"
   ssh_private_key_file = var.ssh_private_key_file
 
-  # NoCloud datasource — exige arquivos com nome exato `user-data` e `meta-data`.
-  # `user-data` é gerado/copiado a partir do `.example` pelo workflow (ou pelo
-  # script local em scripts/build-artifacts.sh) e está no .gitignore.
   cd_files = ["./cloud-init/user-data", "./cloud-init/meta-data"]
   cd_label = "cidata"
 

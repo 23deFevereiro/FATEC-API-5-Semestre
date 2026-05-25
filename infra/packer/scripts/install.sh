@@ -1,14 +1,4 @@
 #!/bin/bash
-# Provisioner que roda DENTRO da VM temporária durante o build.
-# Chamado pelo Packer via:
-#   execute_command = "sudo bash '{{.Path}}'"
-# então este script já roda como root — sem `sudo` interno.
-#
-# Espera receber em /tmp/packer/ (via provisioner `file` do Packer):
-#   - backend.tar.gz       (tarball do API_5_SEM_BACK sem .venv / .git)
-#   - frontend.tar.gz      (build do Vite — conteúdo do dist/)
-#   - nginx-site.conf
-#   - lunae-backend.service
 
 set -euo pipefail
 

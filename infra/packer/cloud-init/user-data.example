@@ -10,6 +10,5 @@ users:
 ssh_pwauth: false
 disable_root: true
 
-# Não rodar apt durante o cloud-init — o install.sh faz isso.
 package_update: false
 package_upgrade: false
