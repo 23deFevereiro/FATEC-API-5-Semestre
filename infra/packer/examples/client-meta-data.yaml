@@ -1,0 +1,9 @@
+# NoCloud meta-data — companion do user-data.
+#
+# instance-id: muda esse valor sempre que quiser que o cloud-init "rode de
+#              novo do zero" (ele compara com o salvo em /var/lib/cloud/).
+#              Pra cada VM nova, um id único.
+# local-hostname: vira o hostname da VM. Aparece no prompt e em `hostname`.
+
+instance-id: lunae-prod-01
+local-hostname: lunae
