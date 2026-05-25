@@ -1,36 +1,29 @@
 #cloud-config
-# ─────────────────────────────────────────────────────────────────────────
-# Exemplo de user_data para o cliente colar no campo "User Data" ao criar
-# uma instância OCI a partir da Custom Image do Lunae.
-#
-# Substituir os valores entre <…> antes de usar.
-# ─────────────────────────────────────────────────────────────────────────
+
+users:
+  - name: ubuntu
+    plain_text_passwd: ubuntu
+    lock_passwd: false
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAA...substitua-pela-sua-chave-publica... user@host
+
+ssh_pwauth: false
 
 write_files:
   - path: /opt/lunae/backend/.env
-    permissions: '0600'
     owner: lunae:lunae
+    permissions: '0640'
     content: |
-      # Banco
-      POSTGRES_DB=<DB_NAME>
-      POSTGRES_USER=<DB_USER>
-      POSTGRES_PASSWORD=<DB_PASSWORD>
-      POSTGRES_HOST=<POSTGRES_HOST>
+      # Banco de dados
+      POSTGRES_DB=lunae
+      POSTGRES_USER=fev-23
+      POSTGRES_PASSWORD=TROQUE-ME
+      POSTGRES_HOST=10.0.0.10
       POSTGRES_PORT=5432
 
       # Django
-      SECRET_KEY=<GERAR_50_CARACTERES_ALEATORIOS>
+      SECRET_KEY=gere-uma-chave-aleatoria-aqui
       DEBUG=False
-      ALLOWED_HOSTS=<DOMAIN>,<INSTANCE_IP>,127.0.0.1
-
-      # Gunicorn — ajustar conforme vCPUs:
-      #   1 vCPU → 3
-      #   4 vCPUs → 9
-      GUNICORN_WORKERS=3
-
-# Inicia os serviços após o .env ser escrito.
-# O systemd unit do backend tem ConditionPathExists=/opt/lunae/backend/.env,
-# então sem este passo o serviço ficaria parado.
-runcmd:
-  - systemctl start lunae-backend.service
-  - systemctl reload nginx.service
+      ALLOWED_HOSTS=lunae.exemplo.com,127.0.0.1,localhost

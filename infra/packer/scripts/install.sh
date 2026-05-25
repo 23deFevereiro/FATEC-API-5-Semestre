@@ -1,10 +1,4 @@
 #!/bin/bash
-# Provisioner que roda DENTRO da VM temporária durante o build.
-# Espera receber em /tmp/packer/ (via provisioner `file` do Packer):
-#   - backend.tar.gz      (tarball do API_5_SEM_BACK sem .venv / .git)
-#   - frontend.tar.gz     (build do Vite — conteúdo do dist/)
-#   - nginx-site.conf
-#   - lunae-backend.service
 
 set -euo pipefail
 
