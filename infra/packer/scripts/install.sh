@@ -46,16 +46,11 @@ systemctl daemon-reload
 systemctl enable lunae-backend.service
 systemctl enable nginx.service
 
-# Não startamos lunae-backend aqui: ConditionPathExists=/opt/lunae/backend/.env
-# vai impedir o boot até o cliente passar o .env via cloud-init.
-
 echo ">> limpeza para reduzir tamanho da imagem"
-apt-get clean
-rm -rf /tmp/packer
-rm -rf /var/lib/apt/lists/*
-rm -rf /var/log/*.log /var/log/apt/* /var/log/nginx/*
-# cloud-init clean zera o machine-id e logs do build — permite que a
-# instância gerada a partir desta imagem rode cloud-init "do zero".
-cloud-init clean --logs --seed
+# apt-get clean
+# rm -rf /tmp/packer
+# rm -rf /var/lib/apt/lists/*
+# rm -rf /var/log/*.log /var/log/apt/* /var/log/nginx/*
+# cloud-init clean --logs --seed
 
 echo ">> provisioning concluído"
