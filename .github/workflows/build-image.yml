@@ -71,7 +71,7 @@ jobs:
       - name: Install QEMU/KVM
         run: |
           sudo apt-get update
-          sudo apt-get install -y qemu-system-x86 qemu-utils ovmf
+          sudo apt-get install -y qemu-system-x86 qemu-utils ovmf xorriso
           # Conferir que /dev/kvm é acessível (runners ubuntu-latest têm)
           ls -l /dev/kvm
           sudo usermod -aG kvm "$USER"
