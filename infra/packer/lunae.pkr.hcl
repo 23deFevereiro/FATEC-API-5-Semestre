@@ -50,7 +50,7 @@ source "qemu" "ubuntu_noble" {
 
   headless = true
 
-  accelerator = "tcg"
+  accelerator = "kvm"
 
   ssh_username         = "ubuntu"
   ssh_timeout          = "20m"

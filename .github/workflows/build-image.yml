@@ -16,6 +16,7 @@ jobs:
     env:
       VERSION: ${{ github.event.inputs.version }}
       IMAGE_FILE: lunae-${{ github.event.inputs.version }}.qcow2
+      VMDK_FILE:  lunae-${{ github.event.inputs.version }}.vmdk
       OCI_CLI_USER:        ${{ secrets.OCI_USER_OCID }}
       OCI_CLI_TENANCY:     ${{ secrets.OCI_TENANCY_OCID }}
       OCI_CLI_FINGERPRINT: ${{ secrets.OCI_FINGERPRINT }}
@@ -25,6 +26,13 @@ jobs:
       OCI_BUCKET:          ${{ secrets.OCI_BUCKET }}
 
     steps:
+      # ─── 0. Configurações iniciais (perms KVM, etc) ──────────────────
+      - name: Enable KVM group perms
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
       # ─── 1. Checkout (com submódulos: back + front) ──────────────────
       - name: Checkout
         uses: actions/checkout@v4
@@ -116,22 +124,31 @@ jobs:
           ls -lh infra/packer/output/
           test -f "infra/packer/output/${IMAGE_FILE}"
 
-      # ─── 7. Upload pra OCI Object Storage ────────────────────────────
+      # ─── 7. Converter qcow2 → vmdk (pra VirtualBox/VMware) ───────────
+      - name: Convert qcow2 to vmdk
+        run: |
+          qemu-img convert -p -O vmdk \
+            "infra/packer/output/${IMAGE_FILE}" \
+            "infra/packer/output/${VMDK_FILE}"
+          ls -lh infra/packer/output/
+          test -f "infra/packer/output/${VMDK_FILE}"
+
+      # ─── 8. Upload pra OCI Object Storage ────────────────────────────
       - name: Install OCI CLI
         run: |
           pip install --upgrade oci-cli
 
-      - name: Upload image to OCI bucket
+      - name: Upload vmdk to OCI bucket
         run: |
           oci os object put \
             --namespace "${OCI_NAMESPACE}" \
             --bucket-name "${OCI_BUCKET}" \
-            --name "${IMAGE_FILE}" \
-            --file "infra/packer/output/${IMAGE_FILE}" \
+            --name "${VMDK_FILE}" \
+            --file "infra/packer/output/${VMDK_FILE}" \
             --force \
             --auth api_key
 
-      - name: Print download URL
+      - name: Print download URLs
         run: |
           echo "Imagem disponível em:"
-          echo "https://objectstorage.${OCI_CLI_REGION}.oraclecloud.com/n/${OCI_NAMESPACE}/b/${OCI_BUCKET}/o/${IMAGE_FILE}"
+          echo "  vmdk:  https://objectstorage.${OCI_CLI_REGION}.oraclecloud.com/n/${OCI_NAMESPACE}/b/${OCI_BUCKET}/o/${VMDK_FILE}"
