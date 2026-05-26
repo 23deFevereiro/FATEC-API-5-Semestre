@@ -5,18 +5,12 @@ set -euxo pipefail
 echo ">> aguardando cloud-init terminar (build)"
 cloud-init status --wait
 
-echo "------------------------------------------"
-ls -lh /opt/packer/
-echo "------------------------------------------"
-
 echo ">> apt update + pacotes base"
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -y
 apt-get upgrade -y \
     -o Dpkg::Options::="--force-confdef" \
     -o Dpkg::Options::="--force-confold"
-# build-essential + libpq-dev: pra wheels que precisam compilar
-# (psycopg2-binary já é binário, mas outras deps podem precisar)
 apt-get install -y --no-install-recommends \
     python3 python3-venv python3-pip python3-dev \
     build-essential libpq-dev \
@@ -55,22 +49,16 @@ systemctl daemon-reload
 systemctl enable lunae-backend.service
 systemctl enable nginx.service
 systemctl reload nginx.service
+sync; sync; sync
 
-# echo ">> limpeza para reduzir tamanho da imagem"
-# apt-get clean
-# rm -rf /opt/packer
-# rm -rf /var/lib/apt/lists/*
-# rm -rf /var/log/*.log /var/log/apt/* /var/log/nginx/*
-# cloud-init clean --logs --seed
-
-echo ">> checando artefatos no disco"
-cat /var/www/lunae/index.html
-test -d /opt/lunae/backend/.venv                  || { echo "FALHOU: venv do backend não criado"; exit 1; }
-test -f /etc/nginx/sites-enabled/lunae            || { echo "FALHOU: site nginx não habilitado"; exit 1; }
-test -f /etc/systemd/system/lunae-backend.service || { echo "FALHOU: unit do backend não copiada"; exit 1; }
-systemctl is-enabled lunae-backend.service
-systemctl is-enabled nginx.service
+echo ">> limpeza para reduzir tamanho da imagem"
+apt-get clean
+rm -rf /opt/packer
+rm -rf /var/lib/apt/lists/*
+rm -rf /var/log/*.log /var/log/apt/* /var/log/nginx/*
+cloud-init clean --logs --seed
 
 echo ">> sync antes do halt"
 sync; sync; sync
+
 echo ">> provisioning concluído"

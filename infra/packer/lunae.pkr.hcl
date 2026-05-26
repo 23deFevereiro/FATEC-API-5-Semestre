@@ -98,16 +98,6 @@ build {
   }
 
   provisioner "shell" {
-    inline = [
-      "echo '>> conteúdo de /opt/packer antes do install.sh'",
-      "ls -lh /opt/packer/",
-      "cat /opt/packer/nginx-site.conf",
-      "cat /opt/packer/lunae-backend.service",
-      "echo '---------------------------------'",
-    ]
-  }
-
-  provisioner "shell" {
     script          = "./scripts/install.sh"
     execute_command = "sudo bash '{{.Path}}'"
   }
