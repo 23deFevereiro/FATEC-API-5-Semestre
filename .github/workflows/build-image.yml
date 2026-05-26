@@ -16,7 +16,7 @@ jobs:
     env:
       VERSION: ${{ github.event.inputs.version }}
       IMAGE_FILE: lunae-${{ github.event.inputs.version }}.qcow2
-      VMDK_FILE:  lunae-${{ github.event.inputs.version }}.vmdk
+      VDI_FILE:   lunae-${{ github.event.inputs.version }}.vdi
       OCI_CLI_USER:        ${{ secrets.OCI_USER_OCID }}
       OCI_CLI_TENANCY:     ${{ secrets.OCI_TENANCY_OCID }}
       OCI_CLI_FINGERPRINT: ${{ secrets.OCI_FINGERPRINT }}
@@ -125,31 +125,31 @@ jobs:
           ls -lh infra/packer/output/
           test -f "infra/packer/output/${IMAGE_FILE}"
 
-      # ─── 7. Converter qcow2 → vmdk (pra VirtualBox/VMware) ───────────
-      # - name: Convert qcow2 to vmdk
-      #   run: |
-      #     qemu-img convert -p -O vmdk \
-      #       "infra/packer/output/${IMAGE_FILE}" \
-      #       "infra/packer/output/${VMDK_FILE}"
-      #     ls -lh infra/packer/output/
-      #     test -f "infra/packer/output/${VMDK_FILE}"
+      # ─── 7. Converter qcow2 → VDI (formato nativo do VirtualBox) ─────
+      - name: Convert qcow2 to VDI
+        run: |
+          qemu-img convert -p -O vdi \
+            "infra/packer/output/${IMAGE_FILE}" \
+            "infra/packer/output/${VDI_FILE}"
+          ls -lh infra/packer/output/
+          test -f "infra/packer/output/${VDI_FILE}"
 
       # ─── 8. Upload pra OCI Object Storage ────────────────────────────
       - name: Install OCI CLI
         run: |
           pip install --upgrade oci-cli
 
-      - name: Upload vmdk to OCI bucket
+      - name: Upload VDI to OCI bucket
         run: |
           oci os object put \
             --namespace "${OCI_NAMESPACE}" \
             --bucket-name "${OCI_BUCKET}" \
-            --name "${IMAGE_FILE}" \
-            --file "infra/packer/output/${IMAGE_FILE}" \
+            --name "${VDI_FILE}" \
+            --file "infra/packer/output/${VDI_FILE}" \
             --force \
             --auth api_key
 
       - name: Print download URLs
         run: |
           echo "Imagem disponível em:"
-          echo "  vmdk:  https://objectstorage.${OCI_CLI_REGION}.oraclecloud.com/n/${OCI_NAMESPACE}/b/${OCI_BUCKET}/o/${VMDK_FILE}"
+          echo "  vdi:  https://objectstorage.${OCI_CLI_REGION}.oraclecloud.com/n/${OCI_NAMESPACE}/b/${OCI_BUCKET}/o/${VDI_FILE}"
