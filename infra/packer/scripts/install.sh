@@ -71,4 +71,6 @@ test -f /etc/systemd/system/lunae-backend.service || { echo "FALHOU: unit do bac
 systemctl is-enabled lunae-backend.service
 systemctl is-enabled nginx.service
 
+echo ">> sync antes do halt"
+sync; sync; sync
 echo ">> provisioning concluído"
