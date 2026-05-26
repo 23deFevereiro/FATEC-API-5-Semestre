@@ -48,7 +48,7 @@ jobs:
       - name: Build frontend (Vite)
         working-directory: API_5_SEM_FRONT
         env:
-          VITE_API_URL:
+          VITE_API_URL: ""
         run: |
           npm ci
           npm run build
@@ -126,13 +126,13 @@ jobs:
           test -f "infra/packer/output/${IMAGE_FILE}"
 
       # ─── 7. Converter qcow2 → vmdk (pra VirtualBox/VMware) ───────────
-      - name: Convert qcow2 to vmdk
-        run: |
-          qemu-img convert -p -O vmdk \
-            "infra/packer/output/${IMAGE_FILE}" \
-            "infra/packer/output/${VMDK_FILE}"
-          ls -lh infra/packer/output/
-          test -f "infra/packer/output/${VMDK_FILE}"
+      # - name: Convert qcow2 to vmdk
+      #   run: |
+      #     qemu-img convert -p -O vmdk \
+      #       "infra/packer/output/${IMAGE_FILE}" \
+      #       "infra/packer/output/${VMDK_FILE}"
+      #     ls -lh infra/packer/output/
+      #     test -f "infra/packer/output/${VMDK_FILE}"
 
       # ─── 8. Upload pra OCI Object Storage ────────────────────────────
       - name: Install OCI CLI
@@ -144,8 +144,8 @@ jobs:
           oci os object put \
             --namespace "${OCI_NAMESPACE}" \
             --bucket-name "${OCI_BUCKET}" \
-            --name "${VMDK_FILE}" \
-            --file "infra/packer/output/${VMDK_FILE}" \
+            --name "${IMAGE_FILE}" \
+            --file "infra/packer/output/${IMAGE_FILE}" \
             --force \
             --auth api_key
 

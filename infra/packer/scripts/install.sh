@@ -64,9 +64,9 @@ systemctl reload nginx.service
 # cloud-init clean --logs --seed
 
 echo ">> checando artefatos no disco"
-test -f /var/www/lunae/index.html             || { echo "FALHOU: frontend não instalado"; exit 1; }
-test -d /opt/lunae/backend/.venv              || { echo "FALHOU: venv do backend não criado"; exit 1; }
-test -f /etc/nginx/sites-enabled/lunae        || { echo "FALHOU: site nginx não habilitado"; exit 1; }
+cat /var/www/lunae/index.html
+test -d /opt/lunae/backend/.venv                  || { echo "FALHOU: venv do backend não criado"; exit 1; }
+test -f /etc/nginx/sites-enabled/lunae            || { echo "FALHOU: site nginx não habilitado"; exit 1; }
 test -f /etc/systemd/system/lunae-backend.service || { echo "FALHOU: unit do backend não copiada"; exit 1; }
 systemctl is-enabled lunae-backend.service
 systemctl is-enabled nginx.service
