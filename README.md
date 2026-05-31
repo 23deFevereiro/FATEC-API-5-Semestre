@@ -564,14 +564,301 @@ SELECT df.razao_social AS supplier,
     
 ## 🚀 Run, Use and Test the Project
 
-TODO (Sprint 3)
+This section provides a complete, reproducible step-by-step guide for running **Lunae** locally — written so that any new developer, evaluator, or the client can clone the repository and have the application running in development mode without prior context.
+
+> A higher-level summary of the development environment is also available in the [Wiki — Ambiente de desenvolvimento](https://github.com/23deFevereiro/FATEC-API-5-Semestre/wiki/8.-Ambiente-de-desenvolvimento). This section expands on it with full commands, environment variables, and troubleshooting.
+
 <details>
 
 <summary>Click here</summary>
-A
+
+### 1. Prerequisites
+
+The project is composed of three independent processes: a **PostgreSQL** database, a **Django** backend, and a **Vue.js** frontend. The recommended tooling versions are:
+
+| Tool | Recommended version | Purpose |
+|---|---|---|
+| **Git** | ≥ 2.40 | Clone the repository and submodules |
+| **Python** | 3.12.x | Runs the Django backend and ETL commands |
+| **pip** | ≥ 24.0 | Python package manager |
+| **Node.js** | 20.x LTS or 22.x LTS | Runs the Vite dev server and builds the frontend |
+| **npm** | ≥ 10 | Frontend package manager (bundled with Node.js) |
+| **PostgreSQL** | 18.x | Application database |
+| **Docker + Docker Compose** | ≥ 24 / Compose v2 | *(optional)* Run PostgreSQL via container instead of a local install |
+
+System dependencies:
+
+- Linux/macOS users need a C toolchain and PostgreSQL development headers for `psycopg2-binary` (usually `build-essential`, `libpq-dev`, and `python3-dev` on Debian/Ubuntu).
+- Windows users should run the backend through **WSL2** for a smoother experience.
+
+---
+
+### 2. Cloning the Repository
+
+The project is structured as a meta-repository that aggregates two submodules: `API_5_SEM_BACK` (Django) and `API_5_SEM_FRONT` (Vue.js).
+
+```bash
+git clone --recurse-submodules https://github.com/23deFevereiro/FATEC-API-5-Semestre.git
+cd FATEC-API-5-Semestre
+```
+
+If you have already cloned the repository without submodules, initialize them with:
+
+```bash
+git submodule update --init --recursive
+```
+
+---
+
+### 3. Backend Setup (Django)
+
+#### 3.1. Create and activate a virtual environment
+
+```bash
+cd API_5_SEM_BACK
+python3 -m venv .venv
+
+# Linux / macOS
+source .venv/bin/activate
+
+# Windows (PowerShell)
+.venv\Scripts\Activate.ps1
+```
+
+#### 3.2. Install dependencies
+
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+#### 3.3. Configure environment variables
+
+Create a `.env` file in `API_5_SEM_BACK/` based on the provided template (`.env.deploy.example`). For local development the recommended values are:
+
+```env
+# Database
+POSTGRES_DB=lunae
+POSTGRES_USER=fev-23
+POSTGRES_PASSWORD=fev-23
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+
+# Django
+SECRET_KEY=dev-secret-key-change-me
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
+```
+
+> The settings module reads these variables via `os.getenv` — see `API_5_SEM_BACK/api/settings.py`.
+
+#### 3.4. Create the PostgreSQL database
+
+You can either use a local PostgreSQL install or the provided `docker-compose.yml` at the repository root.
+
+**Option A — Docker (recommended):**
+
+From the repository root (where `docker-compose.yml` lives), and with the same variables exported (or copied into a root-level `.env`):
+
+```bash
+docker compose up -d database
+```
+
+**Option B — Local PostgreSQL:**
+
+```bash
+sudo -u postgres psql
+```
+
+```sql
+CREATE DATABASE lunae;
+CREATE USER "fev-23" WITH PASSWORD 'fev-23';
+GRANT ALL PRIVILEGES ON DATABASE lunae TO "fev-23";
+\q
+```
+
+#### 3.5. Run migrations and seed the database
+
+The project ships with a custom management command (`dev_db`) that runs the seed that matches the current migration and populates the star schema.
+
+```bash
+# Fix raw client CSVs (writes to api/management/commands/corrected_documents/)
+python manage.py fix_csv
+
+# Apply migrations and load the seed for the latest migration
+python manage.py migrate
+python manage.py dev_db
+```
+
+> `dev_db` automatically picks the correct seed for the current schema version. For full compatibility with the current frontend, make sure migrations are up to date (seed `0007` at the time of writing).
+
+#### 3.6. Start the backend server
+
+```bash
+python manage.py runserver
+```
+
+The API will be available at **http://localhost:8000/api/** with interactive docs at:
+
+- Swagger UI — http://localhost:8000/api/swagger/
+- ReDoc — http://localhost:8000/api/redoc/
+- OpenAPI schema — http://localhost:8000/api/swagger.json
+
+---
+
+### 4. Frontend Setup (Vue.js)
+
+#### 4.1. Install dependencies
+
+In a **second terminal**, from the repository root:
+
+```bash
+cd API_5_SEM_FRONT
+npm install
+```
+
+#### 4.2. Configure environment variables
+
+Create a `.env` (or `.env.local`) file inside `API_5_SEM_FRONT/`:
+
+```env
+VITE_API_URL=http://localhost:8000
+```
+
+> The frontend reads this in `src/utils/api.ts` and prefixes every request to the Django backend.
+
+#### 4.3. Start the dev server
+
+```bash
+npm run dev
+```
+
+Vite will print the local URL — by default **http://localhost:3000/** (or the next free port). The dev server proxies API calls to `VITE_API_URL`.
+
+---
+
+### 5. Running the Full Stack
+
+For a complete development environment, you need three processes running in parallel:
+
+| Process | Command | URL |
+|---|---|---|
+| PostgreSQL | `docker compose up -d database` *(or local service)* | `localhost:5432` |
+| Backend (Django) | `python manage.py runserver` (inside `API_5_SEM_BACK`, venv active) | http://localhost:8000 |
+| Frontend (Vite) | `npm run dev` (inside `API_5_SEM_FRONT`) | http://localhost:3000 |
+
+Open **http://localhost:3000** in a browser to use the application. The frontend will call the backend on port 8000, which in turn reads from PostgreSQL on port 5432.
+
+---
+
+### 6. Running the Tests
+
+#### Backend (Django + pytest)
+
+From `API_5_SEM_BACK/` with the virtual environment active:
+
+```bash
+# Run the full test suite
+pytest
+
+# Run with coverage report
+pytest --cov=api --cov-report=term-missing
+
+# Run a specific test module
+pytest api/tests/test_views.py -v
+```
+
+Test configuration lives in `pytest.ini` and `conftest.py`.
+
+#### Frontend (Vitest)
+
+From `API_5_SEM_FRONT/`:
+
+```bash
+# Run tests in watch mode
+npm run test
+
+# Single run with coverage
+npm run test:coverage
+
+# Linting
+npm run lint
+```
+
+---
+
+### 7. Useful Development Commands
+
+#### Backend (Django)
+
+```bash
+# Apply migrations
+python manage.py migrate
+
+# Create a new migration after editing models
+python manage.py makemigrations
+
+# Open a Django shell with project context
+python manage.py shell
+
+# Create a superuser to access /admin
+python manage.py createsuperuser
+
+# Reset and reseed the database from corrected CSVs
+python manage.py flush --no-input
+python manage.py dev_db
+
+# Re-run CSV correction (regenerates corrected_documents/)
+python manage.py fix_csv
+
+# Format and lint
+black .
+isort .
+flake8
+```
+
+#### Frontend (Vue.js)
+
+```bash
+# Production build
+npm run build
+
+# Preview the production build locally
+npm run preview
+
+# Type-check only
+npm run type-check
+
+# Auto-fix lint issues
+npm run lint:fix
+```
+
+#### Docker / Database
+
+```bash
+# Start only the database container
+docker compose up -d database
+
+# Stop all containers
+docker compose down
+
+# Stop and wipe the database volume (DESTRUCTIVE)
+docker compose down -v
+
+# Connect to the database with psql
+docker compose exec database psql -U fev-23 -d lunae
+```
+
+---
+
+### 8. Troubleshooting
+
+- **`psycopg2` install fails** — install `libpq-dev` (Debian/Ubuntu) or `postgresql` (macOS via Homebrew) and retry `pip install -r requirements.txt`.
+- **`connection refused` from Django to PostgreSQL** — confirm the container/service is up (`docker compose ps`) and that `POSTGRES_HOST=localhost` in `.env` when the DB runs on the host network.
+- **Frontend cannot reach the API** — verify `VITE_API_URL` matches the backend URL and that `ALLOWED_HOSTS` in the backend `.env` includes the host you are using.
+- **Wrong seed/incompatibility warning** — `dev_db` will print a warning if the active migration is not compatible with the application. Run `python manage.py migrate` to bring the schema up to date and re-run `dev_db`.
 
 </details>
-
 → <a href="#23-de-fevereiro">Back to top</a>
 
 ---
